@@ -17,6 +17,12 @@
 .App-intro {
   font-size: large;
 }
+.form{
+  margin-top: 15px;
+}
+.form_searchButton{
+  display: -webkit-inline-box !important;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
