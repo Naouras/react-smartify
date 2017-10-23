@@ -1,0 +1,5 @@
+const Config = {
+  spotifyAccessToken: 'BQDz4uzlQr8Cs1mFyMpeMXxxGHSkXMs-jALz4t3WFOJ5zlQ6rJGvMVdsU_oBOAakUu-aVzZ4BBKRX4add0-_hab7Gc7smzljDBXxIqPjaJ5_l9ymjP0mKx47ndyqCzP82cvuf4b0SRkgeeFo88aFfmdW'
+}
+
+export default Config
