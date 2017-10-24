@@ -17,11 +17,11 @@
 .App-intro {
   font-size: large;
 }
-.form{
-  margin-top: 15px;
-}
 .form_searchButton{
   display: -webkit-inline-box !important;
+}
+.row_content_center{
+  justify-content: center !important;  
 }
 
 @keyframes App-logo-spin {

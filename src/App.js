@@ -3,8 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import Form from './Components/form'
-// import {search} from './lib/SpotifyUtil'
+import Form from './Components/SearchFormComponent'
 
 class App extends Component {
   constructor(props) {
