@@ -1,47 +1,69 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {getAlbumsByArtist} from '../lib/SpotifyUtil';
 
 class Artist extends Component {
-    componentDidMount() {
-        console.log('GrandChild did mount.', this.props.resultArtist);
+    constructor(props) {
+        super(props);
+        this.state = {
+            search_albums: ''
+        };
     }
+
+    doSearchAlbum(e, id) {
+        getAlbumsByArtist(id).then(
+            json => {
+                this.setState({search_albums: json.items})
+                console.log("search_albums", json.items)
+            })
+    }
+
     render() {
         return (
             <div>
-
                 {
                     this.props.resultArtist ?
-                        <div> {this.props.resultArtist.artists.items.map((obj, i) =>
-                            <div id="accordion" role="tablist" aria-multiselectable="true" key={i}>
+                        <div> {this.props.resultArtist.map(obj =>
+                            <div id="accordion" role="tablist" aria-multiselectable="true" key={obj.id}>
                                 <div className="card">
-                                    <div className="card-header" role="tab" id="headingOne">
+                                    <div className="card-header" role="tab" id={(obj.name + obj.id).replace(/ /g, '')}>
                                         <h5 className="mb-0">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <a data-toggle="collapse" href={'#' + obj.id} aria-controls={obj.id}
+                                               onClick={e => this.doSearchAlbum(e, obj.id)}>
                                                 {obj.name}
                                             </a>
                                         </h5>
                                     </div>
                                 </div>
-                                <div id="collapseOne" className="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                <div id={obj.id} className="collapse" role="tabpanel"
+                                     aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent="#accordion">
                                     <div className="card-block">
-                                        {obj.external_urls.spotify}
-                                     </div>
+                                        {obj.images.map((res, i) =>
+                                            <img key={i} src={res.url} alt="Card  cap"/>
+                                        )}
+                                        {this.state.search_albums ?
+                                            <AlbumsList Albums={this.state.search_albums}/> : null}
+                                    </div>
                                 </div>
                             </div>
-
-
                         )}
-
                         </div>
                         :
                         undefined
-
                 }
-
             </div>
         )
     }
 
 }
 
+function AlbumsList(props) {
+    const Albums = props.Albums;
+    const listItems = Albums.map((res, i) =>
+        <li key={i} className="list-group-item">Album {i}: {res.name}</li>
+    );
+    return (
+        <ul className="list-group">{listItems}</ul>
+    );
+}
 
 export default Artist;

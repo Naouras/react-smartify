@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -6,26 +6,17 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import Form from './Components/SearchFormComponent'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      search_text: '',
-      search_type: 'artist',
-      search_result: undefined
+    render() {
+        return (
+            <div className="App">
+                <nav className="navbar navbar-light bg-faded" style={{backgroundColor: 'aliceblue'}}>
+                    <img src={logo} className="d-inline-block align-top App-logo" alt="logo"/>
+                    <h2>Smartify</h2>
+                </nav>
+                <Form/>
+            </div>
+        );
     }
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Smartify</h2>
-        </div>
-        <Form />
-      </div>
-    );
-  }
 }
 
 export default App;
