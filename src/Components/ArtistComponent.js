@@ -62,7 +62,7 @@ function AlbumsList(props) {
         <li key={i} className="list-group-item">Album {i}: {res.name}</li>
     );
     return (
-        <ul className="list-group">{listItems}</ul>
+        <ul className="list-group" style={{color:'red'}}>{listItems}</ul>
     );
 }
 
