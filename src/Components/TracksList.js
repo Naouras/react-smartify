@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
+import {selectSong} from '../actions/index'
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 class TracksList extends Component {
-    selectSong(song) {
-        console.log("You clicked a SONG: ", song);
-        return {
-            type: 'SONG_SELECTED',
-            payload: song
-        }
-    };
-
     listItems() {
         let self = this;
         return (
@@ -17,7 +12,7 @@ class TracksList extends Component {
                         <li key={i} className="list-group-item">
                             Song {i}: {res.name}
                             <button  key={i} type="button" className="btn btn-default btn-sm"
-                                    onClick={() => self.selectSong(res.name)}
+                                    onClick={() => self.props.selectSong(res.name)}
                             >
                                 <span className="glyphicon glyphicon-star-empty"></span> Like
                             </button>
@@ -36,19 +31,13 @@ class TracksList extends Component {
 
 }
 
-/*function TracksList(props) {
-    const Tracks = props.Tracks;
-    const listItems = Tracks.map((res, i) =>
-        <li key={i} className="list-group-item">
-            Song {i}: {res.name}
-            <button type="button" className="btn btn-default btn-sm">
-                <span className="glyphicon glyphicon-star-empty"></span> Like
-            </button>
-            </li>
-    );
-    return (
-        <ul className="list-group">{listItems}</ul>
-    );
-}*/
+function mapStateToProps(state) {
+    return {
+        song: state.activeSongs
+    };
+}
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({selectSong: selectSong}, dispatch);
+}
 
-export default TracksList;
+export default connect(mapStateToProps,matchDispatchToProps)(TracksList);

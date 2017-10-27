@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import ActiveSongsReducer from './reducer-active-song';
+import ActiveSongsReducer from './reducerActiveSong';
 
 const allReducers = combineReducers({
     activeSongs: ActiveSongsReducer
