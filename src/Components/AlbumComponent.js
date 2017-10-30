@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getSongsByAlbum} from '../lib/SpotifyUtil';
-import TracksList from './TracksList'
+import TracksList from './TracksListComponent'
 
 class Album extends Component {
     constructor(props) {
@@ -19,6 +19,7 @@ class Album extends Component {
     }
 
     render() {
+        console.log("albumitems",this.props.resultAlbum)
         return (
             <div>
                 {
@@ -56,20 +57,4 @@ class Album extends Component {
     }
 
 }
-
-/*function TracksList(props) {
-    const Tracks = props.Tracks;
-    const listItems = Tracks.map((res, i) =>
-        <li key={i} className="list-group-item">
-            Song {i}: {res.name}
-            <button type="button" className="btn btn-default btn-sm">
-                <span className="glyphicon glyphicon-star-empty"></span> Like
-            </button>
-            </li>
-    );
-    return (
-        <ul className="list-group">{listItems}</ul>
-    );
-}*/
-
 export default Album;

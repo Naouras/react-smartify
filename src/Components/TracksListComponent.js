@@ -4,6 +4,12 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 class TracksList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            typeSearch: ''
+        };
+    }
     listItems() {
         let self = this;
         return (
@@ -12,9 +18,9 @@ class TracksList extends Component {
                         <li key={i} className="list-group-item">
                             Song {i}: {res.name}
                             {
-                                !(self.props.song) ?
+                                self.props.song.indexOf(res.id) === -1  ?
                                     <button  key={i} type="button" className="btn btn-default btn-sm"
-                                             onClick={() => self.props.selectSong(res.name)}
+                                             onClick={() => self.props.selectSong(res)}
                                     >
                                         <span className="glyphicon glyphicon-thumbs-up"></span> No Like
                                     </button>
@@ -33,7 +39,7 @@ class TracksList extends Component {
     }
 
     render() {
-        console.log("songsss",this.props.song)
+        console.log("lengthTab", this.props.song.length)
         return (
             <ul className="list-group">{this.listItems()}</ul>
         );

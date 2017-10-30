@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {getAlbumsByArtist} from '../lib/SpotifyUtil';
+import AlbumsList from './AlbumListsComponent';
 
 class Artist extends Component {
     constructor(props) {
@@ -37,11 +38,12 @@ class Artist extends Component {
                                 <div id={obj.id} className="collapse" role="tabpanel"
                                      aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent="#accordion">
                                     <div className="card-block">
-                                        {obj.images.map((res, i) =>
+                                        {/*{obj.images.map((res, i) =>
                                             <img key={i} src={res.url} alt="Card  cap"/>
-                                        )}
+                                        )}*/}
                                         {this.state.search_albums ?
-                                            <AlbumsList Albums={this.state.search_albums}/> : null}
+                                            <AlbumsList Albums={this.state.search_albums}/>
+                                             : null}
                                     </div>
                                 </div>
                             </div>
@@ -56,14 +58,14 @@ class Artist extends Component {
 
 }
 
-function AlbumsList(props) {
+/*function AlbumsList(props) {
     const Albums = props.Albums;
     const listItems = Albums.map((res, i) =>
-        <li key={i} className="list-group-item">Album {i}: {res.name}</li>
+        <li key={i} className="list-group-item" onclick={() => this.listSongs()}>Album {i}: {res.name}</li>
     );
     return (
         <ul className="list-group" style={{color:'red'}}>{listItems}</ul>
     );
-}
+}*/
 
 export default Artist;

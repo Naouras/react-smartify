@@ -1,7 +1,7 @@
-export default function (state = null, action) {
+export default function (state = [], action) {
     switch (action.type) {
         case 'SONG_SELECTED':
-            return action.payload;
+            return action.tabIdSongs;
             break;
         default:
             return state;

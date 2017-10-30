@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Artist from './ArtistComponent';
 import Album from './AlbumComponent';
-import Track from './TrackComponent'
+// import Track from './TrackComponent'
+import TracksList from './TracksListComponent'
 
 class Result extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class Result extends Component {
                 {
                     this.state.typeSearch === 'track' && this.props.result
                         ?
-                        <Track resultTrack={this.props.result.tracks.items}/>
+                        <TracksList Tracks={this.props.result.tracks.items}/>
                         :
                         null
                 }
