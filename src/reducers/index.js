@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import ActiveSongsReducer from './reducerActiveSong';
 
 const allReducers = combineReducers({
-    activeSongs: ActiveSongsReducer
+    activeSongs: ActiveSongsReducer,
 });
 
 export default allReducers;

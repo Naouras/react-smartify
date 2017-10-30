@@ -1,5 +1,9 @@
 export default function (state = null, action) {
-   if (action.type)
-            return [state];
-
+    switch (action.type) {
+        case 'SONG_SELECTED':
+            return action.payload;
+            break;
+        default:
+            return state;
+    }
 }

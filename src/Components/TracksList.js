@@ -11,11 +11,20 @@ class TracksList extends Component {
                     return (
                         <li key={i} className="list-group-item">
                             Song {i}: {res.name}
-                            <button  key={i} type="button" className="btn btn-default btn-sm"
-                                    onClick={() => self.props.selectSong(res.name)}
-                            >
-                                <span className="glyphicon glyphicon-star-empty"></span> Like
-                            </button>
+                            {
+                                !(self.props.song) ?
+                                    <button  key={i} type="button" className="btn btn-default btn-sm"
+                                             onClick={() => self.props.selectSong(res.name)}
+                                    >
+                                        <span className="glyphicon glyphicon-thumbs-up"></span> No Like
+                                    </button>
+                                    :
+                                    <button  key={i} type="button" className="btn btn-info btn-lg"
+                                             onClick={() => self.props.selectSong(res.name)}
+                                    >
+                                        <span className="glyphicon glyphicon-thumbs-up"></span> Like
+                                    </button>
+                            }
                         </li>
                     )
                 }
@@ -24,6 +33,7 @@ class TracksList extends Component {
     }
 
     render() {
+        console.log("songsss",this.props.song)
         return (
             <ul className="list-group">{this.listItems()}</ul>
         );
