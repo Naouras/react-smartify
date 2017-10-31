@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import Artist from './ArtistComponent';
 import Album from './AlbumComponent';
-// import Track from './TrackComponent'
-import TracksList from './TracksListComponent'
+import TracksList from './TracksComponent'
 
 class Result extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            typeSearch: this.props.type
+            typeSearch: this.props.type,
+            result:this.props.result,
         };
     }
 
@@ -17,32 +17,34 @@ class Result extends Component {
     }
 
     render() {
+        let output = null
+        {
+            if (this.props.result) {
+                this.state.typeSearch === 'artist'
+                    ?
+                    output = <Artist resultArtist={this.props.result.artists.items}/>
+                    :
+                    null
+
+                this.state.typeSearch === 'album'
+                    ?
+                    output = <Album resultAlbum={this.props.result.albums.items}/>
+                    :
+                    null
+
+                this.state.typeSearch === 'track' ?
+                    output = <TracksList Tracks={this.props.result.tracks.items}/>
+                    :
+                    null
+            }
+
+
+        }
         return (
             <div>
 
-                {
-                    this.state.typeSearch === 'artist' && this.props.result
-                        ?
-                        <Artist resultArtist={this.props.result.artists.items}/>
-                        :
-                        null
-                }
 
-                {
-                    this.state.typeSearch === 'album' && this.props.result
-                        ?
-                        <Album resultAlbum={this.props.result.albums.items}/>
-                        :
-                        null
-                }
-                {
-                    this.state.typeSearch === 'track' && this.props.result
-                        ?
-                        <TracksList Tracks={this.props.result.tracks.items}/>
-                        :
-                        null
-                }
-
+                {output}
 
             </div>
         )

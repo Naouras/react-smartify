@@ -39,9 +39,8 @@ class TracksList extends Component {
     }
 
     render() {
-        console.log("lengthTab", this.props.song.length)
         return (
-            <ul className="list-group">{this.listItems()}</ul>
+            <ul className="list-group" style={{fontSize:'large',color:'blue'}}>{this.listItems()}</ul>
         );
     }
 

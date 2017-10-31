@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {getSongsByAlbum} from '../lib/SpotifyUtil';
-import TracksList from './TracksListComponent';
-import {Modal} from  'react-bootstrap'
+import TracksList from './TracksComponent';
+import {Modal} from 'react-bootstrap'
 
 
 class AlbumsList extends Component {
@@ -9,11 +9,11 @@ class AlbumsList extends Component {
         super(props);
         this.state = {
             show: false,
-            search_tracks:''
+            search_tracks: []
         };
     }
 
-    hideModal=() =>{
+    hideModal = () => {
         this.setState({show: false});
     }
 
@@ -21,8 +21,6 @@ class AlbumsList extends Component {
         getSongsByAlbum(id).then(
             json => {
                 this.setState({search_tracks: json.tracks.items})
-                console.log("songsListes", json.tracks.items)
-                console.log("songsListes", json.tracks.items.length)
             })
         this.setState({show: true});
 
@@ -42,10 +40,11 @@ class AlbumsList extends Component {
             )
         )
     }
+
     render() {
         return (
             <div>
-                <ul className="list-group" style={{color: 'red'}}>{this.listItems()}</ul>
+                <ul className="list-group" style={{fontSize:'x-large', color:'blue'}}>{this.listItems()}</ul>
                 <Modal
                     show={this.state.show}
                     onHide={this.hideModal}
@@ -53,15 +52,10 @@ class AlbumsList extends Component {
                     aria-labelledby="contained-modal-title"
                 >
                     <Modal.Header>
-                        <Modal.Title id="contained-modal-title">Modal heading</Modal.Title>
+                        <Modal.Title id="contained-modal-title">List Album songs</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {this.state.search_tracks.length > 1 ?
-                            <TracksList Tracks={this.state.search_tracks}/>
-                        :
-
-                            <h1>{this.state.search_tracks.name}</h1>
-                        }
+                        <TracksList Tracks={this.state.search_tracks}/>
                     </Modal.Body>
                     <Modal.Footer>
                         <button onClick={this.hideModal}>Close</button>

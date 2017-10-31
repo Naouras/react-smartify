@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getSongsByAlbum} from '../lib/SpotifyUtil';
-import TracksList from './TracksListComponent'
+import TracksList from './TracksComponent'
 
 class Album extends Component {
     constructor(props) {
