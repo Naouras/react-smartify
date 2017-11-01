@@ -26,11 +26,11 @@ class Form extends Component {
                 </div>
                 <div style={{justifyContent: 'center'}} className="row">
                     <input type="radio" checked={this.state.search_type === 'artist'}
-                           onChange={e => {this.setState({search_type: 'artist',search_result:undefined})}}/>Artist{' '}
+                           onChange={e => {this.setState({search_type: 'artist',search_result:undefined,search_text:''})}}/>Artist{' '}
                     <input type="radio" checked={this.state.search_type === 'album'}
-                           onChange={e => this.setState({search_type: 'album',search_result:undefined})}/>Album{' '}
+                           onChange={e => this.setState({search_type: 'album',search_result:undefined,search_text:''})}/>Album{' '}
                     <input type="radio" checked={this.state.search_type === 'track'}
-                           onChange={e => this.setState({search_type: 'track',search_result:undefined})}/>Track
+                           onChange={e => this.setState({search_type: 'track',search_result:undefined,search_text:''})}/>Track
                 </div>
                 <div style={{justifyContent: 'center', marginTop: 15}} className="row">
                     <Button bsStyle="info" onClick={e => this.doSearchFunction()}>Search</Button>

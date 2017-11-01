@@ -12,7 +12,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^2.6.1",
     "redux-persist": "^5.0.1",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.2.0"
   },
   "proxy": "https://api.spotify.com",
   "devDependencies": {

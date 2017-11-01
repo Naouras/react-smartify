@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {selectSong} from '../actions/index'
+import {LoveSong, dislikeSong} from '../actions/index'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -10,6 +10,7 @@ class TracksList extends Component {
             typeSearch: ''
         };
     }
+
     listItems() {
         let self = this;
         return (
@@ -18,15 +19,15 @@ class TracksList extends Component {
                         <li key={i} className="list-group-item">
                             Song {i}: {res.name}
                             {
-                                self.props.song.indexOf(res.id) === -1  ?
-                                    <button  key={i} type="button" className="btn btn-default btn-sm"
-                                             onClick={() => self.props.selectSong(res)}
+                                self.props.song.indexOf(res.id) === -1 ?
+                                    <button key={i} type="button" className="btn btn-default btn-sm"
+                                            onClick={() => self.props.LoveSong(res)}
                                     >
                                         <span className="glyphicon glyphicon-thumbs-up"></span> No Like
                                     </button>
                                     :
-                                    <button  key={i} type="button" className="btn btn-info btn-lg"
-                                             onClick={() => self.props.selectSong(res.name)}
+                                    <button key={i} type="button" className="btn btn-default btn-sm"
+                                            onClick={() => self.props.dislikeSong(res.name)} style={{color:'red'}}
                                     >
                                         <span className="glyphicon glyphicon-thumbs-up"></span> Like
                                     </button>
@@ -40,7 +41,7 @@ class TracksList extends Component {
 
     render() {
         return (
-            <ul className="list-group" style={{fontSize:'large',color:'blue'}}>{this.listItems()}</ul>
+            <ul className="list-group" style={{fontSize: 'large', color: 'blue'}}>{this.listItems()}</ul>
         );
     }
 
@@ -48,11 +49,12 @@ class TracksList extends Component {
 
 function mapStateToProps(state) {
     return {
-        song: state.activeSongs
+        song:state.SongsReducer,
     };
 }
-function matchDispatchToProps(dispatch){
-    return bindActionCreators({selectSong: selectSong}, dispatch);
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({LoveSong: LoveSong, dislikeSong: dislikeSong}, dispatch);
 }
 
-export default connect(mapStateToProps,matchDispatchToProps)(TracksList);
+export default connect(mapStateToProps, matchDispatchToProps)(TracksList);

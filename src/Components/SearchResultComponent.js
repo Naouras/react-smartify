@@ -8,7 +8,7 @@ class Result extends Component {
         super(props);
         this.state = {
             typeSearch: this.props.type,
-            result:this.props.result,
+            resultSearch: undefined
         };
     }
 
@@ -16,38 +16,39 @@ class Result extends Component {
         this.setState({typeSearch: this.props.type})
     }
 
+    componentDidMount() {
+        this.setState({resultSearch: this.props.result})
+    }
+
     render() {
-        let output = null
-        {
+        console.log("resultSearch", this.state.resultSearch);
+        const renderComponent = () => {
+            let self = this;
+            let component = null;
             if (this.props.result) {
-                this.state.typeSearch === 'artist'
-                    ?
-                    output = <Artist resultArtist={this.props.result.artists.items}/>
-                    :
-                    null
-
-                this.state.typeSearch === 'album'
-                    ?
-                    output = <Album resultAlbum={this.props.result.albums.items}/>
-                    :
-                    null
-
-                this.state.typeSearch === 'track' ?
-                    output = <TracksList Tracks={this.props.result.tracks.items}/>
-                    :
-                    null
+                switch (self.state.typeSearch) {
+                    case 'artist':
+                        component = <Artist resultArtist={self.props.result.artists.items}/>
+                        break;
+                    case 'album':
+                        component = <Album resultAlbum={self.props.result.albums.items}/>
+                        break;
+                    case 'track':
+                        component = <TracksList Tracks={self.props.result.tracks.items}/>
+                        break;
+                    default:
+                        break;
+                }
+                return component;
             }
-
-
+            else return null
         }
+
         return (
             <div>
-
-
-                {output}
-
+                {renderComponent()}
             </div>
-        )
+        );
     }
 
 }

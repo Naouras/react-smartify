@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {getAlbumsByArtist} from '../lib/SpotifyUtil';
-import AlbumsList from './AlbumListsComponent';
-import {Link} from 'react-router-dom'
+import AlbumsList from './AlbumComponent';
 
 class Artist extends Component {
     constructor(props) {
@@ -26,7 +25,6 @@ class Artist extends Component {
                 {
                     this.props.resultArtist ?
                         <div> {this.props.resultArtist.map(obj =>
-                            <Link  key={obj.id} to={`/g/${obj.name}`}>
                             <div id="accordion" role="tablist" aria-multiselectable="true" key={obj.id}>
                                 <div className="card">
                                     <div className="card-header" role="tab"
@@ -53,12 +51,11 @@ class Artist extends Component {
                                     </div>
                                     <div className="card-block">
                                         {this.state.search_albums ?
-                                            <AlbumsList Albums={this.state.search_albums}/>
+                                            <AlbumsList resultAlbum={this.state.search_albums}/>
                                             : null}
                                     </div>
                                 </div>
                             </div>
-                            </Link>
                         )}
                         </div>
                         :

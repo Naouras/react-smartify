@@ -14,12 +14,10 @@ class Album extends Component {
         getSongsByAlbum(id).then(
             json => {
                 this.setState({search_tracks: json.tracks.items})
-                console.log("tracks", json.tracks.items)
             })
     }
 
     render() {
-        console.log("albumitems",this.props.resultAlbum)
         return (
             <div>
                 {

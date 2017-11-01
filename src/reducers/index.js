@@ -1,8 +1,7 @@
 import {combineReducers} from 'redux';
-import ActiveSongsReducer from './reducerActiveSong';
+import SongsReducer from './reducerActiveSong';
 
 const allReducers = combineReducers({
-    activeSongs: ActiveSongsReducer,
+    SongsReducer:SongsReducer,
 });
-
 export default allReducers;
