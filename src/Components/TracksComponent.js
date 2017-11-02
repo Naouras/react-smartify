@@ -23,13 +23,13 @@ class TracksList extends Component {
                                     <button key={i} type="button" className="btn btn-default btn-sm"
                                             onClick={() => self.props.LoveSong(res)}
                                     >
-                                        <span className="glyphicon glyphicon-thumbs-up"></span> No Like
+                                        <span className="glyphicon glyphicon-heart-empty"></span> No Like
                                     </button>
                                     :
                                     <button key={i} type="button" className="btn btn-default btn-sm"
                                             onClick={() => self.props.dislikeSong(res.name)} style={{color:'red'}}
                                     >
-                                        <span className="glyphicon glyphicon-thumbs-up"></span> Like
+                                        <span className="glyphicon glyphicon-heart"></span> Like
                                     </button>
                             }
                         </li>
@@ -41,7 +41,7 @@ class TracksList extends Component {
 
     render() {
         return (
-            <ul className="list-group" style={{fontSize: 'large', color: 'blue'}}>{this.listItems()}</ul>
+            <ul className="list-group" style={{fontSize: 'large'}}>{this.listItems()}</ul>
         );
     }
 

@@ -25,21 +25,30 @@ class Form extends Component {
         }
         else this.setState({stateSearch: false})
     }
+   handleChange=(e) =>this.setState({search_text: e.target.value})
+    handleSelectChange=(e)=>{
+        this.setState({search_type: e.target.value,search_result: undefined,search_text:''})
+    }
 
     render() {
         return (
             <div style={{marginTop: 15}}>
                 <div style={{justifyContent: 'center'}} className="row">
                     <div className="col-md-4">
-                        <FormGroup bsSize="large" className="form_searchButton">
+                        <FormGroup  className="form_searchButton">
                             <FormControl type="text" placeholder="Search"
-                                         onChange={e => this.setState({search_text: e.target.value})}
+                                         onChange={this.handleChange}
                                          value={this.state.search_text}/>
                         </FormGroup>
                     </div>
                     <div className="col-md-2">
-                        <div className="row" style={{paddingTop: 10}}>
-                            <input type="radio" checked={this.state.search_type === 'artist'}
+                        <div className="row">
+                            <select className="form-control form-control-lg" value={this.state.search_type} onChange={this.handleSelectChange}>
+                                <option value="artist">Artist</option>
+                                <option value="album">Album</option>
+                                <option value="track">Track</option>
+                            </select>
+                            {/*<input type="radio" checked={this.state.search_type === 'artist'}
                                    onChange={e => {
                                        this.setState({search_type: 'artist', search_result: undefined, search_text: ''})
                                    }}/>Artist{' '}
@@ -54,13 +63,14 @@ class Form extends Component {
                                        search_type: 'track',
                                        search_result: undefined,
                                        search_text: ''
-                                   })}/>Track
+                                   })}/>Track*/}
                         </div>
                     </div>
+                    <div className="col-md-2">
+                        <Button bsStyle="info" onClick={e => this.doSearchFunction()}>Search</Button>
+                    </div>
                 </div>
-                <div style={{justifyContent: 'center', marginTop: 15}} className="row">
-                    <Button bsStyle="info" onClick={e => this.doSearchFunction()}>Search</Button>
-                </div>
+                <hr  className="hr"/>
                 <div style={{marginTop: 15}} className="row">
                     {this.state.stateSearch === true ?
                         <Result result={this.state.search_result} type={this.state.search_type}/>

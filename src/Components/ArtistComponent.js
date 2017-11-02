@@ -18,7 +18,6 @@ class Artist extends Component {
                 this.setState({artistName: json.items.name})
             })
     }
-
     render() {
         return (
             <div>
@@ -59,7 +58,7 @@ class Artist extends Component {
                                      aria-labelledby={(obj.name + obj.id).replace(/ /g, '')}
                                      data-parent="#accordion">
                                     <div className="card-block">
-                                        <h3>List of albums:</h3>
+                                        <h1>List of albums:</h1>
                                     </div>
                                     <div className="card-block">
                                         {this.state.search_albums ?

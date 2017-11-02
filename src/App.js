@@ -8,7 +8,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <div className="card-header" style={{backgroundColor: 'aliceblue'}}>
+                <div className="card-header" style={{backgroundColor: 'ghostwhite'}}>
                     <h2>Smartify Application</h2>
                 </div>
                 <Form/>

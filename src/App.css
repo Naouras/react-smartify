@@ -30,6 +30,9 @@
     width: 70px !important;
     height:70px !important;
 }
+.hr{
+    border-top: 1px solid #28a4c9;
+}
 
 @keyframes App-logo-spin {
     from {
