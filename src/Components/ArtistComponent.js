@@ -27,20 +27,32 @@ class Artist extends Component {
                         <div> {this.props.resultArtist.map(obj =>
                             <div id="accordion" role="tablist" aria-multiselectable="true" key={obj.id}>
                                 <div className="card">
-                                    <div className="card-header" role="tab"
+                                    <div className="w3-container" role="tab"
                                          id={(obj.name + obj.id).replace(/ /g, '')}>
-                                        <h5 className="mb-0">
-                                            <a data-toggle="collapse" href={'#' + obj.id} aria-controls={obj.id}
-                                               onClick={e => this.doSearchAlbum(e, obj.id)}
-                                               style={{fontSize: 'xx-large'}}>
-                                                {obj.name}
-                                                {obj.images.map((res, i) => {
-                                                    if (i === 2 && res !== '' && res !== null && res !== undefined)
-                                                        return <img key={i} src={res.url} alt="Card  cap"/>
-                                                    else return null
-                                                })}
-                                            </a>
-                                        </h5>
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <h5 className="mb-0">
+                                                    <a data-toggle="collapse" href={'#' + obj.id} aria-controls={obj.id}
+                                                       onClick={e => this.doSearchAlbum(e, obj.id)}
+                                                       style={{fontSize: 'x-large'}}>
+                                                        {obj.images.map((res, i) => {
+                                                            if (i === 2 && res !== '' && res !== null && res !== undefined)
+                                                                return <img key={i} src={res.url} className="avatar" alt="Card  cap" />
+                                                            else return null
+                                                        })}
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <h5 className="mb-0">
+                                                    <a data-toggle="collapse" href={'#' + obj.id} aria-controls={obj.id}
+                                                       onClick={e => this.doSearchAlbum(e, obj.id)}
+                                                       style={{fontSize: 'x-large'}}>
+                                                        {obj.name}
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id={obj.id} className="collapse" role="tabpanel"

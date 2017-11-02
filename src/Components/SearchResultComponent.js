@@ -12,8 +12,8 @@ class Result extends Component {
         };
     }
 
-    componentWillReceiveProps() {
-        this.setState({typeSearch: this.props.type})
+    componentWillReceiveProps(nextProps) {
+        this.setState({typeSearch: nextProps.type})
     }
 
     componentDidMount() {
@@ -21,7 +21,6 @@ class Result extends Component {
     }
 
     render() {
-        console.log("resultSearch", this.state.resultSearch);
         const renderComponent = () => {
             let self = this;
             let component = null;
@@ -45,8 +44,14 @@ class Result extends Component {
         }
 
         return (
-            <div>
-                {renderComponent()}
+            <div className="col-md-12">
+                <div className="row">
+                    <div className="col-md-2">
+                    </div>
+                    <div className="col-md-8">
+                        {renderComponent()}
+                    </div>
+                </div>
             </div>
         );
     }

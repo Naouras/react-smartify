@@ -25,6 +25,11 @@
 .row_content_center {
     justify-content: center !important;
 }
+.avatar{
+    border-radius: 50%;
+    width: 70px !important;
+    height:70px !important;
+}
 
 @keyframes App-logo-spin {
     from {
