@@ -1,16 +1,28 @@
 import React, {Component} from 'react';
 import {getSongsByAlbum} from '../lib/SpotifyUtil';
-import TracksList from './TracksComponent'
+import TracksList from './TracksComponent';
+import { Route } from 'react-router-dom';
+import {withRouter} from 'react-router-dom'
 
 class Album extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search_tracks: ''
+            search_tracks: undefined,
+            albumId:undefined,
+            albumName:undefined
         };
     }
-
     doSearchtracks(e, id) {
+        let local_path = this.props.location.pathname
+        console.log("local_path",local_path)
+        let exist =local_path.lastIndexOf('/albumId/')
+        let next_result = local_path.substring(0, exist)
+        if(exist > -1){
+            this.props.history.push(next_result+"/albumId/"+id)
+        }else{
+            this.props.history.push(local_path+"/albumId/"+id)
+        }
         getSongsByAlbum(id).then(
             json => {
                 this.setState({search_tracks: json.tracks.items})
@@ -22,8 +34,8 @@ class Album extends Component {
             <div>
                 {
                     this.props.resultAlbum ?
-                        <div> {this.props.resultAlbum.map(obj =>
-                            <div id="accordion" role="tablist" aria-multiselectable="true" key={obj.id}>
+                        <div id={"accordion"+this.props.artistId} role="tablist" aria-multiselectable="true" key={this.props.artistId}> {this.props.resultAlbum.map(obj =>
+                            <div key={obj.id}>
                                 <div className="card">
                                     <div className="card-header" role="tab" id={(obj.name + obj.id).replace(/ /g, '')}>
                                         <h5 className="mb-0">
@@ -35,10 +47,13 @@ class Album extends Component {
                                     </div>
                                 </div>
                                 <div id={obj.id} className="collapse" role="tabpanel"
-                                     aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent="#accordion">
+                                     aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent={"#accordion"+this.props.artistId}>
                                     <div className="card-block">
                                         {this.state.search_tracks ?
-                                            <TracksList Tracks={this.state.search_tracks}/> : null}
+                                            <Route path='/smartify/:search_type/:search_text' render={(props) => (
+                                            <TracksList Tracks={this.state.search_tracks} artistId={this.props.artistId} albumId={obj.id}/>
+                                            )}/>
+                                                : null}
                                     </div>
                                 </div>
                             </div>
@@ -55,4 +70,5 @@ class Album extends Component {
     }
 
 }
-export default Album;
+//export default Album;
+export default withRouter(Album) ;

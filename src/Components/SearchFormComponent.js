@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {search} from '../lib/SpotifyUtil';
 import '../App.css';
 import {FormGroup, FormControl, Button} from 'react-bootstrap'
-import Result from './SearchResultComponent'
+import Result from './SearchResultComponent';
+import { Route } from 'react-router-dom';
 
 class Form extends Component {
     constructor(props) {
@@ -14,7 +15,6 @@ class Form extends Component {
             stateSearch: false
         }
     }
-
     doSearchFunction() {
         if (this.state.search_text) {
             search(this.state.search_text, this.state.search_type).then(
@@ -22,6 +22,7 @@ class Form extends Component {
                     this.setState({search_result: json})
                 })
             this.setState({stateSearch: true})
+            this.props.history.push('/smartify/'+this.state.search_type+'/'+this.state.search_text)
         }
         else this.setState({stateSearch: false})
     }
@@ -48,22 +49,6 @@ class Form extends Component {
                                 <option value="album">Album</option>
                                 <option value="track">Track</option>
                             </select>
-                            {/*<input type="radio" checked={this.state.search_type === 'artist'}
-                                   onChange={e => {
-                                       this.setState({search_type: 'artist', search_result: undefined, search_text: ''})
-                                   }}/>Artist{' '}
-                            <input type="radio" checked={this.state.search_type === 'album'}
-                                   onChange={e => this.setState({
-                                       search_type: 'album',
-                                       search_result: undefined,
-                                       search_text: ''
-                                   })}/>Album{' '}
-                            <input type="radio" checked={this.state.search_type === 'track'}
-                                   onChange={e => this.setState({
-                                       search_type: 'track',
-                                       search_result: undefined,
-                                       search_text: ''
-                                   })}/>Track*/}
                         </div>
                     </div>
                     <div className="col-md-2">
@@ -73,7 +58,8 @@ class Form extends Component {
                 <hr  className="hr"/>
                 <div style={{marginTop: 15}} className="row">
                     {this.state.stateSearch === true ?
-                        <Result result={this.state.search_result} type={this.state.search_type}/>
+                        <Route path={"/smartify/:search_type/:search_text"} render={(props) => (
+                        <Result {...props} result={this.state.search_result} type={this.state.search_type}/>)}/>
                         :
                         <div className="alert alert-info" style={{margin:50,width:'100%'}}>
                             <strong>Info!</strong> You should input What are you looking for .

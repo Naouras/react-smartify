@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import allReducers from './reducers';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter,Route} from 'react-router-dom';
 import thunk from 'redux-thunk';
 import * as localStore from './localStore';
 
@@ -21,7 +21,7 @@ store.subscribe(() => {
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App/>
+            <Route path="/" component={App}></Route>
         </Provider>
     </BrowserRouter>, document.getElementById('root'));
 registerServiceWorker();

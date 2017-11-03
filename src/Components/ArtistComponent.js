@@ -1,22 +1,35 @@
 import React, {Component} from 'react';
 import {getAlbumsByArtist} from '../lib/SpotifyUtil';
 import AlbumsList from './AlbumComponent';
+import { Route } from 'react-router-dom';
+import {withRouter} from 'react-router-dom'
 
 class Artist extends Component {
     constructor(props) {
         super(props);
         this.state = {
             search_albums: '',
-            artistName: ''
+            artistName: '',
+            artistId:undefined
         };
     }
-
     doSearchAlbum(e, id) {
-        getAlbumsByArtist(id).then(
-            json => {
-                this.setState({search_albums: json.items})
-                this.setState({artistName: json.items.name})
-            })
+        if(id !== this.state.artistId) {
+            let local_path = this.props.location.pathname
+            let exist =local_path.lastIndexOf('/artistId/')
+            if(exist > -1){
+                let next_result = local_path.substring(0, exist)
+                this.props.history.push(next_result+"/artistId/"+id)
+            }else{
+                this.props.history.push(local_path+"/artistId/"+id)
+            }
+            this.setState({artistId:id})
+            getAlbumsByArtist(id).then(
+                json => {
+                    this.setState({search_albums: json.items})
+                    this.setState({artistName: json.items.name})
+                })
+        }
     }
     render() {
         return (
@@ -61,9 +74,11 @@ class Artist extends Component {
                                         <h1>List of albums:</h1>
                                     </div>
                                     <div className="card-block">
-                                        {this.state.search_albums ?
-                                            <AlbumsList resultAlbum={this.state.search_albums}/>
-                                            : null}
+                                        { this.state.artistId === obj.id && this.state.search_albums ?
+                                            <Route path='/smartify/artist/:search_text' render={(props) => (
+                                            <AlbumsList resultAlbum={this.state.search_albums} artistId={obj.id}/>
+                                            )}/>
+                                                : null}
                                     </div>
                                 </div>
                             </div>
@@ -78,4 +93,6 @@ class Artist extends Component {
 
 }
 
-export default Artist;
+//export default Artist;
+
+export default withRouter(Artist) ;
