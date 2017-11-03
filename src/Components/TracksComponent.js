@@ -13,8 +13,7 @@ class TracksList extends Component {
     }
     routerUrlSong(e,songId){
         let local_path = this.props.location.pathname
-        console.log("path",local_path);
-        var exist = local_path.lastIndexOf('/songId/')
+        let exist = local_path.lastIndexOf('/songId/')
         let path_result = local_path.substring(0, exist)
         if(exist > -1){
             this.props.history.push(path_result+"/songId/"+songId)

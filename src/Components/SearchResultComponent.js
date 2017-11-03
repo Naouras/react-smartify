@@ -34,7 +34,6 @@ class Result extends Component {
     }
 
     render() {
-        console.log("result,",this.props.result);
         return (
             <div className="col-md-12">
                 <div className="row">

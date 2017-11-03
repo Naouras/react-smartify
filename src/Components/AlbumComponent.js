@@ -15,7 +15,6 @@ class Album extends Component {
     }
     doSearchtracks(e, id) {
         let local_path = this.props.location.pathname
-        console.log("local_path",local_path)
         let exist =local_path.lastIndexOf('/albumId/')
         let next_result = local_path.substring(0, exist)
         if(exist > -1){
