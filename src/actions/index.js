@@ -1,17 +1,15 @@
 export const LoveSong =(song) =>{
-    let tabIdSongs = [];
-    tabIdSongs.push(song.id);
-    console.log("You liked a SONG: ", tabIdSongs);
+    console.log("You liked a SONG: ",song.name);
     return {
         type: 'SONG_Loved',
-        tabIdSongs:song.id
+        id:song.id,
     }
 };
 
 export const dislikeSong =(song) =>{
-    console.log("You dislikeSong a SONG: ", song.id);
+    console.log("You dislikeSong a SONG: ",song.name);
     return {
         type: 'SONG_DISLIKED',
-        tabIdSongs:song.id
+        id:song.id,
     }
 };

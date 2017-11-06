@@ -4,7 +4,7 @@ import TracksList from './TracksComponent';
 import { Route } from 'react-router-dom';
 import {withRouter} from 'react-router-dom'
 
-class Album extends Component {
+class AlbumComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,7 +49,7 @@ class Album extends Component {
                                      aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent={"#accordion"+this.props.artistId}>
                                     <div className="card-block">
                                         {this.state.search_tracks ?
-                                            <Route path='/smartify/:search_type/:search_text' render={(props) => (
+                                            <Route path='/smartify/:search_type' render={(props) => (
                                             <TracksList Tracks={this.state.search_tracks} artistId={this.props.artistId} albumId={obj.id}/>
                                             )}/>
                                                 : null}
@@ -70,4 +70,4 @@ class Album extends Component {
 
 }
 //export default Album;
-export default withRouter(Album) ;
+export default withRouter(AlbumComponent) ;

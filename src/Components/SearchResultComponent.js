@@ -5,7 +5,7 @@ import TracksList from './TracksComponent';
 import {Switch, Route} from 'react-router-dom';
 //import {search} from '../lib/SpotifyUtil';
 
-class Result extends Component {
+class SearchResultComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,11 +43,11 @@ class Result extends Component {
                         {
                             (this.props.result) &&
                             <Switch>
-                                <Route path="/smartify/artist/:search_text" render={(props) => (
+                                <Route path="/smartify/artist" render={(props) => (
                                     <Artist {...props} resultArtist={this.props.result.artists.items}/> )}/>
-                                <Route path="/smartify/album/:search_text" render={(props) => (
+                                <Route path="/smartify/album" render={(props) => (
                                     <Album {...props} resultAlbum={this.props.result.albums.items}/>)}/>
-                                <Route path="/smartify/track/:search_text" render={(props) => (
+                                <Route path="/smartify/track" render={(props) => (
                                     <TracksList {...props} Tracks={this.props.result.tracks.items}/>)}/>
                             </Switch>
                         }
@@ -60,4 +60,4 @@ class Result extends Component {
 }
 
 
-export default Result;
+export default SearchResultComponent;
