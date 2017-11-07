@@ -93,6 +93,4 @@ class ArtistComponent extends Component {
 
 }
 
-//export default Artist;
-
 export default withRouter(ArtistComponent) ;

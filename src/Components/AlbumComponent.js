@@ -50,8 +50,7 @@ class AlbumComponent extends Component {
                                     <div className="card-block">
                                         {this.state.search_tracks ?
                                             <Route path='/smartify/:search_type' render={(props) => (
-                                            <TracksList
-                                                istId={this.props.artistId} albumId={obj.id}/>
+                                            <TracksList Tracks={this.state.search_tracks} artistId={this.props.artistId} albumId={obj.id}/>
                                             )}/>
                                                 : null}
                                     </div>
