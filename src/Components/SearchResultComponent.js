@@ -3,7 +3,6 @@ import Artist from './ArtistComponent';
 import Album from './AlbumComponent';
 import TracksList from './TracksComponent';
 import {Switch, Route} from 'react-router-dom';
-//import {search} from '../lib/SpotifyUtil';
 
 class SearchResultComponent extends Component {
     constructor(props) {
@@ -22,15 +21,6 @@ class SearchResultComponent extends Component {
     componentDidMount() {
         if (this.state.search_text && this.state.typeSearch)
             this.setState({resultSearch:this.props.result})
-    }
-    componentWillMount() {
-        let typeArray = ['artist', 'album', 'track'];
-        if (this.props.match && (this.props.match.params.search_text && typeArray.indexOf(this.props.match.params.search_type) !== -1)) {
-            this.setState({
-                search_text: this.props.match.params.search_text,
-                typeSearch: this.props.match.params.search_type
-            })
-        }
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LoveSong, dislikeSong} from '../actions/index'
+import {LikeSong, dislikeSong} from '../actions/index'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom'
@@ -8,7 +8,7 @@ class TracksComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            typeSearch: ''
+            typeSearch: '',
         };
     }
     routerUrlSong(e,songId){
@@ -21,7 +21,6 @@ class TracksComponent extends Component {
             this.props.history.push(local_path+"/songId/"+songId)
         }
     }
-
     listItems() {
         let self = this;
         return (
@@ -29,20 +28,11 @@ class TracksComponent extends Component {
                     return (
                         <li key={i} className="list-group-item" onClick={e=>this.routerUrlSong(e,res.id)}>
                             Song {i+1}: {res.name}
-                            {
-                                self.props.song.indexOf(res.id) === -1 ?
-                                    <button key={i} type="button" className="btn btn-default btn-sm"
-                                            onClick={() => self.props.LoveSong(res)}
+                                    <button key={i} type="button" className="btn btn-default btn-sm borderButton"
+                                            onClick={() => {self.props.song.indexOf(res.id) !==-1 ?self.props.dislikeSong(res):self.props.LikeSong(res)}}
                                     >
-                                        <span className="glyphicon glyphicon-heart-empty"></span> No Like
+                                        <span className={self.props.song.indexOf(res.id) !==-1 ?"glyphicon glyphicon-heart":"glyphicon glyphicon-heart-empty"} style={self.props.song.indexOf(res.id) !==-1 ?{color:'red'}:{color:'black'}}></span>
                                     </button>
-                                    :
-                                    <button key={i} type="button" className="btn btn-default btn-sm"
-                                            onClick={() => self.props.dislikeSong(res)} style={{color:'red'}}
-                                    >
-                                        <span className="glyphicon glyphicon-heart"></span> Like
-                                    </button>
-                            }
                         </li>
                     )
                 }
@@ -59,14 +49,13 @@ class TracksComponent extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log("songStateTracks",state.SongsReducer)
     return {
         song:state.SongsReducer,
     };
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({LoveSong: LoveSong, dislikeSong: dislikeSong}, dispatch);
+    return bindActionCreators({LikeSong: LikeSong, dislikeSong: dislikeSong}, dispatch);
 }
 
 const SongList =connect(mapStateToProps, matchDispatchToProps)(TracksComponent)

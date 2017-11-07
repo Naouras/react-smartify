@@ -11,8 +11,8 @@ import store from './store/store'
 
 store.subscribe(() => {
         let state = store.getState();
-        localStore.set(state);
-        console.log("store=", store.getState());
+        localStore.set(state.SongsReducer);
+        console.log("store=",store.getState())
     }
 )
 ReactDOM.render(
