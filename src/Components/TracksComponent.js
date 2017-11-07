@@ -28,7 +28,7 @@ class TracksComponent extends Component {
                     return (
                         <li key={i} className="list-group-item" onClick={e=>this.routerUrlSong(e,res.id)}>
                             Song {i+1}: {res.name}
-                                    <button key={i} type="button" className="btn btn-default btn-sm borderButton"
+                                    <button key={i} type="button" className="btn btn-default btn-sm borderButton btn-circle"
                                             onClick={() => {self.props.song.indexOf(res.id) !==-1 ?self.props.dislikeSong(res):self.props.LikeSong(res)}}
                                     >
                                         <span className={self.props.song.indexOf(res.id) !==-1 ?"glyphicon glyphicon-heart":"glyphicon glyphicon-heart-empty"} style={self.props.song.indexOf(res.id) !==-1 ?{color:'red'}:{color:'black'}}></span>
