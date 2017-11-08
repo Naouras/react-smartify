@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import {LikeSong, dislikeSong} from '../actions/index'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import FaHeartO from 'react-icons/lib/fa/heart-o';
+import FaHeart from 'react-icons/lib/fa/heart';
+
 
 class TracksComponent extends Component {
     constructor(props) {
@@ -20,6 +23,8 @@ class TracksComponent extends Component {
         }else{
             this.props.history.push(local_path+"/songId/"+songId)
         }
+       // this.props.history.push(this.props.match.path+"/songId/"+songId)
+        console.log("songId,",songId);
     }
     listItems() {
         let self = this;
@@ -31,7 +36,7 @@ class TracksComponent extends Component {
                         <button key={i} type="button" className="btn btn-default btn-sm borderButton"
                                 onClick={() => {self.props.song.indexOf(res.id) !==-1 ?self.props.dislikeSong(res):self.props.LikeSong(res)}}
                         >
-                            <span className={self.props.song.indexOf(res.id) !==-1 ?"glyphicon glyphicon-heart":"glyphicon glyphicon-heart-empty"} style={self.props.song.indexOf(res.id) !==-1 ?{color:'red'}:{color:'black'}}></span>
+                            {self.props.song.indexOf(res.id) !==-1 ? <FaHeart style={{color:'red'}} />: <FaHeartO />}
                         </button>
                     </li>
                 )

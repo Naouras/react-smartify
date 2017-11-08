@@ -15,14 +15,7 @@ class ArtistComponent extends Component {
     }
     doSearchAlbum(e, id) {
         if(id !== this.state.artistId) {
-            let local_path = this.props.location.pathname
-            let exist =local_path.lastIndexOf('/artistId/')
-            if(exist > -1){
-                let next_result = local_path.substring(0, exist)
-                this.props.history.push(next_result+"/artistId/"+id)
-            }else{
-                this.props.history.push(local_path+"/artistId/"+id)
-            }
+            this.props.history.push(this.props.match.path+"/artistId/"+id)
             this.setState({artistId:id})
             getAlbumsByArtist(id).then(
                 json => {
