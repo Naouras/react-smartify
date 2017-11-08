@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {search} from '../lib/SpotifyUtil';
+//import {search} from '../lib/SpotifyUtil';
 import '../App.css';
 import {FormGroup, FormControl, Button} from 'react-bootstrap';
 import Result from './SearchResultComponent';
-import {Alert} from 'reactstrap';
+//import {Alert} from 'reactstrap';
+import { Route } from 'react-router-dom';
+
 
 
 class SearchFormComponent extends Component {
@@ -12,19 +14,14 @@ class SearchFormComponent extends Component {
         this.state = {
             search_text: '',
             search_type: 'artist',
-            search_result: undefined,
             stateSearch: true,
         }
     }
 
     doSearchFunction() {
         if (this.state.search_text) {
-            search(this.state.search_text, this.state.search_type).then(
-                json => {
-                    this.setState({search_result: json})
-                })
             this.setState({stateSearch: true})
-            this.props.history.push('/smartify/' + this.state.search_type)
+            this.props.history.push("/"+this.state.search_text+ "/" + this.state.search_type)
         }
         else {
             this.setState({stateSearch: false})
@@ -33,7 +30,7 @@ class SearchFormComponent extends Component {
 
     handleChange = (e) => this.setState({search_text: e.target.value})
     handleSelectChange = (e) => {
-        this.setState({search_type: e.target.value, search_result: undefined, search_text: ''})
+        this.setState({search_type: e.target.value,search_text: ''})
     }
 
     render() {
@@ -63,15 +60,7 @@ class SearchFormComponent extends Component {
                 </div>
                 <hr className="hr"/>
                 <div style={{marginTop: 15}} className="row">
-                    {this.state.stateSearch === true ?
-                        <Result result={this.state.search_result} type={this.state.search_type}/>
-                        :
-                        <div style={{margin: 50, width: '100%'}}>
-                            <Alert color="warning">
-                                <strong>Info!</strong> You should input What are you looking for.
-                            </Alert>
-                        </div>
-                    }
+                    <Route path='/:search_text?/:search_type?' component={Result}/>
                 </div>
             </div>
         );

@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {getSongsByAlbum} from '../lib/SpotifyUtil';
 import TracksList from './TracksComponent';
 import { Route } from 'react-router-dom';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import {search} from '../lib/SpotifyUtil';
 
 class AlbumComponent extends Component {
     constructor(props) {
@@ -10,23 +11,36 @@ class AlbumComponent extends Component {
         this.state = {
             search_tracks: undefined,
             albumId:undefined,
-            albumName:undefined
+            albumName:undefined,
+            search_result_albums:undefined
         };
+        this.doSearchAlbums()
+    }
+    doSearchAlbums(){
+        search(this.props.match.params.search_text, this.props.match.params.search_type).then(
+            json => {
+                this.setState({search_result_albums: json.albums.items})
+                console.log("search_result_albums",json.albums.items)
+            })
     }
     doSearchtracks(e, id) {
-        this.props.history.push(this.props.match.path+"/albumId/"+id)
+        //this.props.artistId ? this.props.history.push(this.props.match.url+"/artistId/"+this.props.artistId+"/albumId/"+id):this.props.history.push(this.props.match.url+"/albumId/"+id)
         getSongsByAlbum(id).then(
             json => {
                 this.setState({search_tracks: json.tracks.items})
             })
+    }
+    componentDidMount() {
+        if (this.props.match.params.search_text && this.props.match.params.search_type)
+            this.doSearchAlbums()
     }
 
     render() {
         return (
             <div>
                 {
-                    this.props.resultAlbum ?
-                        <div id={"accordion"+this.props.artistId} role="tablist" aria-multiselectable="true" key={this.props.artistId}> {this.props.resultAlbum.map(obj =>
+                    this.state.search_result_albums ?
+                        <div id="accordion" role="tablist" aria-multiselectable="true" > {this.state.search_result_albums .map(obj =>
                             <div key={obj.id}>
                                 <div className="card">
                                     <div className="card-header" role="tab" id={(obj.name + obj.id).replace(/ /g, '')}>
@@ -39,7 +53,7 @@ class AlbumComponent extends Component {
                                     </div>
                                 </div>
                                 <div id={obj.id} className="collapse" role="tabpanel"
-                                     aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent={"#accordion"+this.props.artistId}>
+                                     aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent="#accordion">
                                     <div className="card-block">
                                         {this.state.search_tracks ?
                                             <Route path='/smartify/:search_type' render={(props) => (

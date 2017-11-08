@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {getAlbumsByArtist} from '../lib/SpotifyUtil';
-import AlbumsList from './AlbumComponent';
-import { Route } from 'react-router-dom';
-import {withRouter} from 'react-router-dom'
+//import AlbumsList from './AlbumComponent';
+//import { Route } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import {search} from '../lib/SpotifyUtil';
+
 
 class ArtistComponent extends Component {
     constructor(props) {
@@ -10,12 +12,27 @@ class ArtistComponent extends Component {
         this.state = {
             search_albums: '',
             artistName: '',
-            artistId:undefined
+            artistId:undefined,
+            search_text:undefined,
+            search_result_artists:undefined
         };
+        this.doSearch();
+    }
+    doSearch(a,b){
+             search(a,b).then(
+                   json => {
+                       this.setState({search_result_artists: json.artists.items})
+                       console.log("json.artists.items",json.artists.items)
+                   })
+    }
+    componentWillReceiveProps(nextProps) {
+        if(this.props.match && (this.props.match.params.search_text && this.props.match.params.search_type === 'artist')){
+            this.doSearch(this.props.match.params.search_text, 'artist')
+        }
     }
     doSearchAlbum(e, id) {
         if(id !== this.state.artistId) {
-            this.props.history.push(this.props.match.path+"/artistId/"+id)
+            this.props.history.push("/:search_text/:search_type/artistId/"+id)
             this.setState({artistId:id})
             getAlbumsByArtist(id).then(
                 json => {
@@ -24,12 +41,18 @@ class ArtistComponent extends Component {
                 })
         }
     }
+
+    componentDidMount(){
+        if(this.props.match && (this.props.match.params.search_text && this.props.match.params.search_type === 'artist')){
+            this.doSearch(this.props.match.params.search_text, 'artist')
+        }
+    }
     render() {
         return (
             <div>
                 {
-                    this.props.resultArtist ?
-                        <div> {this.props.resultArtist.map(obj =>
+                    this.state.search_result_artists ?
+                        <div> {this.state.search_result_artists.map(obj =>
                             <div id="accordion" role="tablist" aria-multiselectable="true" key={obj.id}>
                                 <div className="card">
                                     <div className="w3-container" role="tab"
@@ -67,11 +90,11 @@ class ArtistComponent extends Component {
                                         <h1>List of albums:</h1>
                                     </div>
                                     <div className="card-block">
-                                        { this.state.artistId === obj.id && this.state.search_albums ?
+                                        {/*{ this.state.artistId === obj.id && this.state.search_albums ?
                                             <Route path='/smartify/artist' render={(props) => (
                                             <AlbumsList resultAlbum={this.state.search_albums} artistId={obj.id}/>
                                             )}/>
-                                                : null}
+                                                : null}*/}
                                     </div>
                                 </div>
                             </div>

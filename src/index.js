@@ -18,7 +18,7 @@ store.subscribe(() => {
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <Route path="/" component={App}></Route>
+            <Route path="/:search_text?/:search_type?/:artistId?/:albumId?" component={App}></Route>
         </Provider>
     </BrowserRouter>, document.getElementById('root'));
 

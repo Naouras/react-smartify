@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Artist from './ArtistComponent';
 import Album from './AlbumComponent';
 import TracksList from './TracksComponent';
-import {Switch, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
+
 
 class SearchResultComponent extends Component {
     constructor(props) {
@@ -15,12 +16,25 @@ class SearchResultComponent extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({typeSearch:nextProps.type})
+        this.setState({typeSearch: nextProps.type})
     }
 
-    componentDidMount() {
-        if (this.state.search_text && this.state.typeSearch)
-            this.setState({resultSearch:this.props.result})
+    components() {
+        let component = null;
+        switch (this.props.match.params.search_type) {
+            case "artist":
+                component = <Route path="/:search_text/:search_type" component={Artist}/>
+                break
+            case "album":
+                component = <Route path="/:search_text/:search_type" component={Album}/>
+                break
+            case "track":
+                component = <Route path="/:search_text/:search_type" component={TracksList}/>
+                break
+            default:
+                component
+        }
+        return component
     }
 
     render() {
@@ -30,17 +44,7 @@ class SearchResultComponent extends Component {
                     <div className="col-md-2">
                     </div>
                     <div className="col-md-8">
-                        {
-                            (this.props.result) &&
-                            <Switch>
-                                <Route path="/smartify/artist" render={(props) => (
-                                    <Artist {...props} resultArtist={this.props.result.artists.items}/> )}/>
-                                <Route path="/smartify/album" render={(props) => (
-                                    <Album {...props} resultAlbum={this.props.result.albums.items}/>)}/>
-                                <Route path="/smartify/track" render={(props) => (
-                                    <TracksList {...props} Tracks={this.props.result.tracks.items}/>)}/>
-                            </Switch>
-                        }
+                        {this.components()}
                     </div>
                 </div>
             </div>
