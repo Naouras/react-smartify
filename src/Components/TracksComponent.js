@@ -1,70 +1,84 @@
 import React, {Component} from 'react';
-import {LikeSong, dislikeSong} from '../actions/index'
+import {LikeSong, dislikeSong} from '../actions/index';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import FaHeartO from 'react-icons/lib/fa/heart-o';
 import FaHeart from 'react-icons/lib/fa/heart';
-import {search} from '../lib/SpotifyUtil';
+import {search, getSongsByAlbum} from '../lib/SpotifyUtil';
 
 
 class TracksComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            typeSearch: '',
-            search_result_tracks: undefined
+            search_text: undefined,
+            search_type: undefined,
+            search_result_tracks: undefined,
+            state_store: false,
         };
         this.doSearch();
     }
 
     doSearch() {
-        search(this.props.match.params.search_text, 'track').then(
-            json => {
-                this.setState({search_result_tracks: json.tracks.items})
-                console.log("typeOf,",typeof  json.tracks.items)
-                json.tracks.items.map((res)=>console.log("tarcks Name", res.name))
-            })
+
+        if (this.props.match.params.albumId) {
+            getSongsByAlbum(this.props.match.params.albumId).then(
+                json => {
+                    this.setState({search_result_tracks: json.tracks.items})
+                })
+        }
+        else {
+            search(this.props.match.params.search_text, this.props.match.params.search_type).then(
+                json => {
+                    this.setState({search_result_tracks: json.tracks.items})
+                })
+        }
     }
 
     routerUrlSong(e, songId) {
-        /*if(this.props.artistId && this.props.albumId){
-            this.props.history.push(this.props.match.url+"/artistId/"+this.props.artistId+"/albumId/"+this.props.albumId+"/songId/"+songId)
-        }
-        else if(this.props.albumId){
-            this.props.history.push(this.props.match.url+"/albumId/"+this.props.albumId+"/songId/"+songId)
-
-        }
-        else this.props.history.push(this.props.match.url+"/songId/"+songId)*/
+        this.props.match.params.trackId = songId
+        let search_text = this.props.match.params.search_text
+        let search_type = this.props.match.params.search_type
+        let art_id = (search_type === "artist") ? this.props.match.params.artistId + "/" : ""
+        let alb_id = (search_type === "track") ? "" : this.props.match.params.albumId + "/"
+        this.props.history.push("/" + search_text + "/" + search_type + "/" + art_id + alb_id + songId + "/")
     }
 
     componentDidMount() {
         if (this.props.match.params.search_text && this.props.match.params.search_type)
-            this.doSearch()
+            this.setState({search_text: this.props.match.params.search_text})
+        this.setState({search_type: this.props.match.params.search_type})
+        this.props.song ? this.setState({state_store: true}) : this.setState({state_store: false});
     }
 
     listItems() {
         let self = this;
         return (
-            self.state.search_result_tracks.map((res, i = 1) => {
-                    return (
-                        <li key={i} className="list-group-item" onClick={e => this.routerUrlSong(e, res.id)}>
-                            Song {i + 1}: {res.name}
-                            <button key={i} type="button" className="btn btn-default btn-sm borderButton"
-                                    onClick={() => {
-                                        self.props.song.indexOf(res.id) !== -1 ? self.props.dislikeSong(res) : self.props.LikeSong(res)
-                                    }}
-                            >
-                                {self.props.song.indexOf(res.id) !== -1 ? <FaHeart style={{color: 'red'}}/> : <FaHeartO/>}
-                            </button>
-                        </li>
-                    )
-                }
-            )
+            self.state.search_result_tracks ?
+                self.state.search_result_tracks.map((res, i = 1) => {
+                        return (
+                            <li key={i} className="list-group-item" onClick={e => this.routerUrlSong(e, res.id)}>
+                                Song {i + 1}: {res.name}
+                                <button key={i} type="button" className="btn btn-default btn-sm borderButton"
+                                        onClick={() => {
+                                            this.props.song.indexOf(res) > -1 ? self.props.dislikeSong(res) : self.props.LikeSong(res)
+                                        }}>
+                                    {
+                                        this.props.song.indexOf(res) > -1 ? <FaHeart style={{color: 'red'}}/> : <FaHeartO/>
+
+                                    }
+                                </button>
+                            </li>
+                        )
+                    }
+                ) :
+                null
         )
     }
 
     render() {
+        console.log("this.props",this.props)
         return (
             <ul className="list-group" style={{fontSize: 'large'}}>{this.listItems()}</ul>
         );

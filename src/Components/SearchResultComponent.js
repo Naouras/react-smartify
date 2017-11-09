@@ -29,7 +29,7 @@ class SearchResultComponent extends Component {
                 component = <Route path="/:search_text/:search_type" component={Album}/>
                 break
             case "track":
-                component = <Route path="/:search_text/:search_type" component={TracksList}/>
+                component=  <Route path="/:search_text/:search_type" component={TracksList}/>
                 break
             default:
                 component

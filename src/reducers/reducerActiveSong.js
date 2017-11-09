@@ -3,13 +3,13 @@ export default function (state = [], action) {
         case 'SONG_Loved': {
             return [
                 ...state,
-                action.song.id
+                action.song
 
             ]
         }
         case 'SONG_DISLIKED': {
             return state.filter(song =>
-                song!== action.song.id
+                song!== action.song
             );
         }
         default:

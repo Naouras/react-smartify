@@ -28,7 +28,10 @@ class SearchFormComponent extends Component {
         }
     }
 
-    handleChange = (e) => this.setState({search_text: e.target.value})
+    handleChange = (e) => {
+
+        (e.target.value.length > 0) ? this.setState({search_text: e.target.value}) : this.setState({search_text: ''})
+    }
     handleSelectChange = (e) => {
         this.setState({search_type: e.target.value,search_text: ''})
     }
@@ -60,7 +63,13 @@ class SearchFormComponent extends Component {
                 </div>
                 <hr className="hr"/>
                 <div style={{marginTop: 15}} className="row">
-                    <Route path='/:search_text?/:search_type?' component={Result}/>
+                    {
+                        this.state.stateSearch ?
+                            <Route path='/:search_text?/:search_type?' component={Result}/>
+                            :
+                            <div>Vérifier chamos texte</div>
+                    }
+
                 </div>
             </div>
         );

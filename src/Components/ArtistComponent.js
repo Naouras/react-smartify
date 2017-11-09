@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {getAlbumsByArtist} from '../lib/SpotifyUtil';
-//import AlbumsList from './AlbumComponent';
-//import { Route } from 'react-router-dom';
+//import {getAlbumsByArtist} from '../lib/SpotifyUtil';
+import AlbumsList from './AlbumComponent';
+import { Route } from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import {search} from '../lib/SpotifyUtil';
 
@@ -11,40 +11,46 @@ class ArtistComponent extends Component {
         super(props);
         this.state = {
             search_albums: '',
-            artistName: '',
             artistId:undefined,
             search_text:undefined,
+            search_type:undefined,
             search_result_artists:undefined
         };
-        this.doSearch();
+        this.doSearch(this.props.match.params.search_text,this.props.match.params.search_type)
     }
-    doSearch(a,b){
-             search(a,b).then(
-                   json => {
-                       this.setState({search_result_artists: json.artists.items})
-                       console.log("json.artists.items",json.artists.items)
-                   })
+    doSearch(text,type){
+        if(this.props.match.params.search_text === text )
+        {
+            search(text,type).then(
+                json => {
+                    this.setState({search_result_artists: json.artists.items})
+                })
+        }
+        else{
+            this.setState({search_result_artists: ''})
+            search(this.props.match.params.search_text,type).then(
+                json => {
+                    this.setState({search_result_artists: json.artists.items})
+                })
+        }
+
     }
     componentWillReceiveProps(nextProps) {
-        if(this.props.match && (this.props.match.params.search_text && this.props.match.params.search_type === 'artist')){
-            this.doSearch(this.props.match.params.search_text, 'artist')
-        }
+        this.setState({search_text:nextProps.match.params.search_text})
+        this.setState({search_type:nextProps.match.params.search_type})
     }
     doSearchAlbum(e, id) {
         if(id !== this.state.artistId) {
-            this.props.history.push("/:search_text/:search_type/artistId/"+id)
+            this.props.history.push("/"+this.state.search_text+"/"+this.state.search_type+"/"+id)
             this.setState({artistId:id})
-            getAlbumsByArtist(id).then(
-                json => {
-                    this.setState({search_albums: json.items})
-                    this.setState({artistName: json.items.name})
-                })
         }
     }
 
     componentDidMount(){
         if(this.props.match && (this.props.match.params.search_text && this.props.match.params.search_type === 'artist')){
-            this.doSearch(this.props.match.params.search_text, 'artist')
+            this.setState({search_text:this.props.match.params.search_text})
+            this.setState({search_type:this.props.match.params.search_type})
+            this.doSearch(this.props.match.params.search_text,this.props.match.params.search_type)
         }
     }
     render() {
@@ -90,11 +96,7 @@ class ArtistComponent extends Component {
                                         <h1>List of albums:</h1>
                                     </div>
                                     <div className="card-block">
-                                        {/*{ this.state.artistId === obj.id && this.state.search_albums ?
-                                            <Route path='/smartify/artist' render={(props) => (
-                                            <AlbumsList resultAlbum={this.state.search_albums} artistId={obj.id}/>
-                                            )}/>
-                                                : null}*/}
+                                        <Route path="/:search_text/:search_type/:artistId" component={AlbumsList}/>
                                     </div>
                                 </div>
                             </div>

@@ -12,7 +12,7 @@ class App extends Component {
                 <div className="card-header" style={{backgroundColor: '#f8f9fa'}}>
                     <h1>Smartify Application</h1>
                 </div>
-                    <Route  path="/:search_text?/:search_type?/:artistId?/:albumId?" component={SearchFormComponent}/>
+                    <Route  path="/:search_text?/:search_type?/:artistId?/:albumId?/:trackId?" component={SearchFormComponent}/>
             </div>
         );
     }
