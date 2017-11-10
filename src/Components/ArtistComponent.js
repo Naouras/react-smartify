@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 //import {getAlbumsByArtist} from '../lib/SpotifyUtil';
 import AlbumsList from './AlbumComponent';
-import { Route } from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
+import { Route,withRouter } from 'react-router';
 import {search} from '../lib/SpotifyUtil';
+
 
 
 class ArtistComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search_albums: '',
             artistId:undefined,
             search_text:undefined,
             search_type:undefined,
@@ -26,14 +25,6 @@ class ArtistComponent extends Component {
                     this.setState({search_result_artists: json.artists.items})
                 })
         }
-        else{
-            this.setState({search_result_artists: ''})
-            search(this.props.match.params.search_text,type).then(
-                json => {
-                    this.setState({search_result_artists: json.artists.items})
-                })
-        }
-
     }
     componentWillReceiveProps(nextProps) {
         this.setState({search_text:nextProps.match.params.search_text})
@@ -66,7 +57,7 @@ class ArtistComponent extends Component {
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <h5 className="mb-0">
-                                                    <a data-toggle="collapse" href={'#' + obj.id} aria-controls={obj.id}
+                                                    <a  data-toggle="collapse" href={'#' + obj.id} aria-controls={obj.id}
                                                        onClick={e => this.doSearchAlbum(e, obj.id)}
                                                        style={{fontSize: 'x-large'}}>
                                                         {obj.images.map((res, i) => {
@@ -96,7 +87,7 @@ class ArtistComponent extends Component {
                                         <h1>List of albums:</h1>
                                     </div>
                                     <div className="card-block">
-                                        <Route path="/:search_text/:search_type/:artistId" component={AlbumsList}/>
+                                        <Route path={`/:search_text/:search_type/:${obj.id}`} component={AlbumsList}/>
                                     </div>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Artist from './ArtistComponent';
 import Album from './AlbumComponent';
 import TracksList from './TracksComponent';
-import {Route} from 'react-router-dom';
+import { Route,withRouter } from 'react-router';
 
 
 class SearchResultComponent extends Component {
@@ -10,41 +10,39 @@ class SearchResultComponent extends Component {
         super(props);
         this.state = {
             typeSearch: undefined,
-            resultSearch: null,
-            search_text: undefined
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({typeSearch: nextProps.type})
+    componentWillReceiveProps(props, nextProps) {
+        /*/props.match.param && (props.match.param.search_type !== nextProps.match.param.search_type) ?
+        this.setState({typeSearch: nextProps.search_type}) : null*/
     }
-
-    components() {
-        let component = null;
-        switch (this.props.match.params.search_type) {
-            case "artist":
-                component = <Route path="/:search_text/:search_type" component={Artist}/>
-                break
-            case "album":
-                component = <Route path="/:search_text/:search_type" component={Album}/>
-                break
-            case "track":
-                component=  <Route path="/:search_text/:search_type" component={TracksList}/>
-                break
-            default:
-                component
-        }
-        return component
-    }
-
     render() {
+        //console.log(this.props.match.params)
         return (
             <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-2">
                     </div>
                     <div className="col-md-8">
-                        {this.components()}
+                        {
+                            this.props.match.params.search_type === 'artist' ?
+                                <Route path="/:search_text/:search_type/:artistId?" component={Artist}/>
+                                :
+                                null
+                        }
+                        {
+                            this.props.match.params.search_type === 'album' ?
+                                <Route path="/:search_text/:search_type/:artistId?/:albumId?" component={Album}/>
+                                :
+                                null
+                        }
+                        {
+                            this.props.match.params.search_type === 'track' ?
+                                <Route path="/:search_text/:search_type/:artistId?/:albumId?/:trackId?" component={TracksList}/>
+                                :
+                                null
+                        }
                     </div>
                 </div>
             </div>
@@ -54,4 +52,4 @@ class SearchResultComponent extends Component {
 }
 
 
-export default SearchResultComponent;
+export default withRouter(SearchResultComponent);

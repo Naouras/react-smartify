@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import SearchFormComponent from './Components/SearchFormComponent';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router';
 
 class App extends Component {
     render() {
@@ -18,4 +18,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);

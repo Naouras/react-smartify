@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 //import {getSongsByAlbum} from '../lib/SpotifyUtil';
 import TracksList from './TracksComponent';
-import { Route } from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
-import {search,getAlbumsByArtist} from '../lib/SpotifyUtil';
+import { Route,withRouter } from 'react-router';
+import {search, getAlbumsByArtist} from '../lib/SpotifyUtil';
+//import App from './helpers'
+
 
 
 class AlbumComponent extends Component {
@@ -11,41 +12,42 @@ class AlbumComponent extends Component {
         super(props);
         this.state = {
             search_tracks: undefined,
-            albumId:undefined,
-            albumName:undefined,
-            search_result_albums:undefined
+            albumId: undefined,
+            albumName: undefined,
+            search_result_albums: undefined
         };
         this.doSearchAlbums()
     }
-    doSearchAlbums(){
-        if (this.props.match.params.artistId){
-            this.doSearc(this.props.match.params.artistId);
-        }
-        else{
+
+    doSearchAlbums() {
+        if(this.props.match.params.search_type === 'album')
+        {
             search(this.props.match.params.search_text, this.props.match.params.search_type).then(
                 json => {
                     this.setState({search_result_albums: json.albums.items})
                 })
         }
+       else {
+            if (this.props.match.params.artistId)
+            this.doSearc(this.props.match.params.artistId);
+        }
+    }
 
+    doSearc(artistId) {
+        getAlbumsByArtist(artistId).then(
+            json => {
+                this.setState({search_result_albums: json.items})
+            })
     }
-    doSearc(artistId){
-            getAlbumsByArtist(artistId).then(
-                json => {
-                    this.setState({search_result_albums: json.items})
-                })
-    }
+
     doSearchtracks(e, id) {
-        this.props.match.params.albumId = id
         let search_text = this.props.match.params.search_text
         let search_type = this.props.match.params.search_type
-        let art_id = (search_type === "artist") ? "/"+this.props.match.params.artistId+"/" : "/"
-        let tra_id = (this.props.match.params.trackId) ? this.props.match.params.trackId+"/" : ""
-        this.props.history.push("/"+search_text+"/"+search_type+art_id+id+tra_id)
-        console.log("this.props.match.params.albumId",this.props.match.params.albumId)
+        let art_id = (search_type === "artist") ? "/" + this.props.match.params.artistId + "/" : "/"
+        this.props.history.push("/" + search_text + "/" + search_type + art_id + id)
     }
+
     componentDidMount() {
-        if (this.props.match.params.search_text && this.props.match.params.search_type)
             this.doSearchAlbums()
     }
 
@@ -54,7 +56,8 @@ class AlbumComponent extends Component {
             <div>
                 {
                     this.state.search_result_albums ?
-                        <div id="accordion" role="tablist" aria-multiselectable="true" > {this.state.search_result_albums.map((obj) =>
+                        <div id="accordion" role="tablist"
+                             aria-multiselectable="true"> {this.state.search_result_albums.map((obj) =>
                             <div key={obj.id}>
                                 <div className="card">
                                     <div className="card-header" role="tab" id={(obj.name + obj.id).replace(/ /g, '')}>
@@ -69,7 +72,8 @@ class AlbumComponent extends Component {
                                 <div id={obj.id} className="collapse" role="tabpanel"
                                      aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent="#accordion">
                                     <div className="card-block">
-                                        <Route path="/:search_text/:search_type/:artistId/:albumId"  component={TracksList}/>
+                                                {/*<Route path={`/:search_text/:search_type/:artistId/${obj.id}`} component={TracksList}/>*/}
+                                                <Route path={`/:search_text/:search_type/:artistId/:${obj.id}`} component={TracksList}/>
                                     </div>
                                 </div>
                             </div>
@@ -86,4 +90,5 @@ class AlbumComponent extends Component {
     }
 
 }
-export default withRouter(AlbumComponent) ;
+
+export default withRouter(AlbumComponent);

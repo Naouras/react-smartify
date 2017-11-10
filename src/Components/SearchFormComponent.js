@@ -4,7 +4,8 @@ import '../App.css';
 import {FormGroup, FormControl, Button} from 'react-bootstrap';
 import Result from './SearchResultComponent';
 //import {Alert} from 'reactstrap';
-import { Route } from 'react-router-dom';
+import {Route} from 'react-router-dom';
+import FavoritesComponent from './FavoritesComponent'
 
 
 
@@ -19,21 +20,21 @@ class SearchFormComponent extends Component {
     }
 
     doSearchFunction() {
-        if (this.state.search_text) {
-            this.setState({stateSearch: true})
-            this.props.history.push("/"+this.state.search_text+ "/" + this.state.search_type)
-        }
-        else {
-            this.setState({stateSearch: false})
-        }
+            this.props.history.push("/" + this.state.search_text + "/" + this.state.search_type)
     }
 
     handleChange = (e) => {
 
-        (e.target.value.length > 0) ? this.setState({search_text: e.target.value}) : this.setState({search_text: ''})
+        if (e.target.value.length > 0)
+            this.setState({search_text: e.target.value})
+        else {
+            this.setState({search_text: ''})
+            this.props.history.push("/")
+        }
     }
     handleSelectChange = (e) => {
-        this.setState({search_type: e.target.value,search_text: ''})
+        this.setState({search_type: e.target.value, search_text: ''})
+        this.props.history.push("/")
     }
 
     render() {
@@ -58,10 +59,11 @@ class SearchFormComponent extends Component {
                         </div>
                     </div>
                     <div className="col-md-2">
-                        <Button className="btn btn-info"  onClick={e => this.doSearchFunction()}>Search</Button>
+                        <Button className="btn btn-info" onClick={e => this.doSearchFunction()}>Search</Button>
                     </div>
                 </div>
                 <hr className="hr"/>
+                <div className="float-right"><FavoritesComponent /></div>
                 <div style={{marginTop: 15}} className="row">
                     {
                         this.state.stateSearch ?

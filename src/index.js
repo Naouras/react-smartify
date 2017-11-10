@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux';
-import {BrowserRouter,Route} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
+import {Route} from 'react-router';
 import * as localStore from './localStore';
 import store from './store/store'
 
@@ -16,10 +17,12 @@ store.subscribe(() => {
     }
 )
 ReactDOM.render(
-    <BrowserRouter>
+
         <Provider store={store}>
+            <BrowserRouter>
             <Route path="/:search_text?/:search_type?/:artistId?/:albumId?/:trackId?" component={App}></Route>
+            </BrowserRouter>
         </Provider>
-    </BrowserRouter>, document.getElementById('root'));
+    , document.getElementById('root'));
 
 registerServiceWorker();
