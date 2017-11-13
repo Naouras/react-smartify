@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LikeSong, dislikeSong} from '../actions/index';
+import {LikeSong, dislikeSong} from '../actions/';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
@@ -18,8 +18,8 @@ class TracksComponent extends Component {
             search_result_tracks: undefined,
         };
         this.doSearch();
-    }
-
+    } 
+ 
     doSearch() {
         if(this.props.match.params.search_type ==='track')
         {
@@ -58,10 +58,10 @@ class TracksComponent extends Component {
                                 Song {i + 1}: {res.name}
                                 <button key={i} type="button" className="btn btn-default btn-sm borderButton"
                                         onClick={() => {
-                                            this.props.song.indexOf(res) > -1 ? self.props.dislikeSong(res) : self.props.LikeSong(res)
+                                            this.props.song && this.props.song.indexOf(res) > -1 ? self.props.dislikeSong(res) : self.props.LikeSong(res)
                                         }}>
                                     {
-                                        this.props.song.indexOf(res) > -1 ? <FaHeart style={{color: 'red'}}/> : <FaHeartO/>
+                                        this.props.song && this.props.song.indexOf(res) > -1 ? <FaHeart style={{color: 'red'}}/> : <FaHeartO/>
 
                                     }
                                 </button>
@@ -81,9 +81,9 @@ class TracksComponent extends Component {
 
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        song: state.SongsReducer,
+        song:state.tracksReducer,
     };
 }
 

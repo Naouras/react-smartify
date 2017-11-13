@@ -1,8 +1,10 @@
 import {createStore,applyMiddleware} from 'redux';
-import allReducers from '../reducers/index';
+import allReducers from '../reducers';
 import thunk from 'redux-thunk';
 
-export  function configureStore(initialState = {SongsReducer:[]}) {
+
+
+export  function configureStore(initialState = {tracksReducer:[]}) {
     const store = createStore(
         allReducers,
         initialState,

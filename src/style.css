@@ -1,0 +1,10 @@
+.borderButton{
+    border-radius: 50% !important;
+    margin-left: 12px !important;
+}
+
+.avatar{
+        border-radius: 50%;
+        width: 70px !important;
+       height:70px !important;
+    }

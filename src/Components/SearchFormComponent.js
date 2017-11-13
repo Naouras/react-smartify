@@ -68,7 +68,7 @@ class SearchFormComponent extends Component {
                 <div style={{marginTop: 15}} className="row">
                     {
                         this.state.stateSearch ?
-                            <Route path='/:search_text?/:search_type?' component={Result}/>
+                            <Route path='/:search_text/:search_type' component={Result}/>
                             :
                             <div>Vérifier chamos texte</div>
                     }

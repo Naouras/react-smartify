@@ -1,4 +1,5 @@
-export default function (state = [], action) {
+
+export default function  (state = [], action) {
     switch (action.type) {
         case 'SONG_Loved': {
             return [
@@ -16,3 +17,4 @@ export default function (state = [], action) {
             return state;
     }
 }
+

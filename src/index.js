@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router';
 import * as localStore from './localStore';
-import store from './store/store'
+import store from './store/index'
 
 
 store.subscribe(() => {

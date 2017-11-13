@@ -45,8 +45,8 @@ class FavoritesComponent extends Component {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {
-                                            this.props.song && this.props.song.map((res, i) => {
+                                        {   this.props.song ?
+                                             this.props.song.map((res, i) => {
                                                 return (
                                                     <tr key={i}>
                                                         <td>{res.name}</td>
@@ -67,6 +67,8 @@ class FavoritesComponent extends Component {
                                                     </tr>
                                                 )
                                             })
+                                            :
+                                            null
                                         }
                                         </tbody>
                                     </table>
@@ -85,7 +87,7 @@ class FavoritesComponent extends Component {
 
 
 const mapStateToProps = (state, ownProps) => ({
-    song: state.SongsReducer,
+    song: state.tracksReducer,
 });
 
 const mapDispatchToProps = {
