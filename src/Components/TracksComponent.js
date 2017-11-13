@@ -29,7 +29,8 @@ class TracksComponent extends Component {
                 })
         }
         else {
-            getSongsByAlbum(this.props.match.params.albumId).then(
+            if(this.props.albId && (this.props.match.params.search_type === 'artist' || this.props.match.params.search_type === 'album'))
+            getSongsByAlbum(this.props.albId).then(
                 json => {
                     this.setState({search_result_tracks: json.tracks.items})
                 })

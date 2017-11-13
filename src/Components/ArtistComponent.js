@@ -87,7 +87,16 @@ class ArtistComponent extends Component {
                                         <h1>List of albums:</h1>
                                     </div>
                                     <div className="card-block">
+{/*
                                         <Route path={`/:search_text/:search_type/:${obj.id}`} component={AlbumsList}/>
+*/}
+{/*
+                                        <Route path={`/:search_text/:search_type/:artistId?`} component={AlbumsList}/>
+*/}
+                                        <Route
+                                            path="/:search_text?/:search_type?/:artistId?"
+                                            render={params => <AlbumsList {...params} artId={obj.id} />}
+                                        />
                                     </div>
                                 </div>
                             </div>

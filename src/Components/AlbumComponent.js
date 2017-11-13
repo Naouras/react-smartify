@@ -28,8 +28,8 @@ class AlbumComponent extends Component {
                 })
         }
        else {
-            if (this.props.match.params.artistId)
-            this.doSearc(this.props.match.params.artistId);
+            if(this.props.artId && (this.props.match.params.search_type === 'artist'))
+            this.doSearc(this.props.artId);
         }
     }
 
@@ -72,8 +72,17 @@ class AlbumComponent extends Component {
                                 <div id={obj.id} className="collapse" role="tabpanel"
                                      aria-labelledby={(obj.name + obj.id).replace(/ /g, '')} data-parent="#accordion">
                                     <div className="card-block">
-                                                {/*<Route path={`/:search_text/:search_type/:artistId/${obj.id}`} component={TracksList}/>*/}
-                                                <Route path={`/:search_text/:search_type/:artistId/:${obj.id}`} component={TracksList}/>
+{/*
+                                                <Route path={`/:search_text/:search_type/:artistId/${obj.id}`} component={TracksList}/>
+*/}
+{/*
+                                                <Route path={`/:search_text?/:search_type?/:artistId?/:albumId?`} component={TracksList}/>
+*/}
+                                         <Route
+                                            path="/:search_text?/:search_type?/:artistId?/:albumId?"
+                                            render={params => <TracksList {...params} albId={obj.id} />}
+                                        />
+
                                     </div>
                                 </div>
                             </div>

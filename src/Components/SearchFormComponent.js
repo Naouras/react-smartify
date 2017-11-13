@@ -21,6 +21,7 @@ class SearchFormComponent extends Component {
 
     doSearchFunction() {
             this.props.history.push("/" + this.state.search_text + "/" + this.state.search_type)
+
     }
 
     handleChange = (e) => {

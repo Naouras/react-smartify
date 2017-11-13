@@ -37,6 +37,12 @@
     border-radius: 50% !important;
     margin-left: 12px;
 }
+.borderButtonStar{
+    border-radius: 50% !important;
+}
+.modelHeight{
+    max-height: calc(182vh - 225px);
+}
 
 @keyframes App-logo-spin {
     from {
