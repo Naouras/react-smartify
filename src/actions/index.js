@@ -1,7 +1,3 @@
-import {LikeSong,dislikeSong,songExist} from './Trackactions'
+import { LikeSong, dislikeSong, songExist } from './Trackactions';
 
-export {
-    LikeSong,
-    dislikeSong,
-    songExist
-}
+export { LikeSong, dislikeSong, songExist };

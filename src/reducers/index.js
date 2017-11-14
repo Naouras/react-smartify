@@ -1,7 +1,7 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import tracksReducer from './TrackReducer';
 
 const allReducers = combineReducers({
-    tracksReducer,
+  tracksReducer
 });
 export default allReducers;
