@@ -22,7 +22,7 @@ class AlbumComponent extends Component {
     doSearchAlbums() {
         if(this.props.match.params.search_type === 'album')
         {
-            search(this.props.match.params.search_text, this.props.match.params.search_type).then(
+            search(this.props.match.params.search_text,'album').then(
                 json => {
                     this.setState({search_result_albums: json.albums.items})
                 })

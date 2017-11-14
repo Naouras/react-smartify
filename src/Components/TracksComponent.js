@@ -23,7 +23,7 @@ class TracksComponent extends Component {
     doSearch() {
         if(this.props.match.params.search_type ==='track')
         {
-            search(this.props.match.params.search_text, this.props.match.params.search_type).then(
+            search(this.props.match.params.search_text,'track').then(
                 json => {
                     this.setState({search_result_tracks: json.tracks.items})
                 })

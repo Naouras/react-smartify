@@ -20,7 +20,7 @@ class ArtistComponent extends Component {
     doSearch(text,type){
         if(this.props.match.params.search_text === text )
         {
-            search(text,type).then(
+            search(text,'artist').then(
                 json => {
                     this.setState({search_result_artists: json.artists.items})
                 })
