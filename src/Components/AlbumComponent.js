@@ -21,34 +21,40 @@ class AlbumComponent extends Component {
 
     doSearchAlbums() {
         if (this.props.match.params.search_type === 'album') {
-            search(this.props.match.params.search_text, 'album').then(
-                json => {
-                    this.setState({ search_result_albums: json.albums.items })
-                })
+            this.doSearch();
         }
         else {
             if (this.props.match.params.artistId && (this.props.match.params.search_type === 'artist'))
-                this.doSearc(this.props.match.params.artistId);
+                this.doSearchAlbumsByArtist(this.props.match.params.artistId);
         }
     }
 
-    doSearc(artistId) {
+    doSearchAlbumsByArtist(artistId) {
         getAlbumsByArtist(artistId).then(
             json => {
                 this.setState({ search_result_albums: json.items })
             })
     }
-
+    doSearch(){
+        search(this.props.match.params.search_text, 'album').then(
+            json => {
+                this.setState({ search_result_albums: json.albums.items })
+            })
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.props.match.params.search_text !== nextProps.match.params.search_text){
+            this.doSearch(nextProps.match.params.search_text)
+        }
+    }
+    componentDidMount() {
+        this.doSearchAlbums()
+    }
     doSearchtracks(e, id) {
         let search_text = this.props.match.params.search_text
         let search_type = this.props.match.params.search_type
         let art_id = (search_type === "artist") ? "/" + this.props.match.params.artistId + "/" : "/"
         this.props.history.push("/" + search_text + "/" + search_type + art_id + id)
         this.setState({albumId_selected:id})
-    }
-
-    componentDidMount() {
-        this.doSearchAlbums()
     }
 
     render() {

@@ -15,9 +15,9 @@ class ArtistComponent extends Component {
             search_type: undefined,
             search_result_artists: undefined
         };
-        this.doSearch(this.props.match.params.search_text, this.props.match.params.search_type)
+        this.doSearch(this.props.match.params.search_text)
     }
-    doSearch(text, type) {
+    doSearch(text) {
         if (this.props.match.params.search_text === text) {
             search(text, 'artist').then(
                 json => {
@@ -25,13 +25,14 @@ class ArtistComponent extends Component {
                 })
         }
     }
-    componentWillReceiveProps(nextProps) {
-        this.setState({ search_text: nextProps.match.params.search_text })
-        this.setState({ search_type: nextProps.match.params.search_type })
-    }
     doSearchAlbum(e, id) {
             this.props.history.push("/" + this.state.search_text + "/" + this.state.search_type + "/" + id)
             this.setState({ artistId_selected: id })
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.props.match.params.search_text !== nextProps.match.params.search_text){
+            this.doSearch(nextProps.match.params.search_text)
+        }
     }
 
     componentDidMount() {
@@ -84,22 +85,11 @@ class ArtistComponent extends Component {
                                         <h1>List of albums:</h1>
                                     </div>
                                     <div className="card-block">
-                                        {/*
-                                        <Route path={`/:search_text/:search_type/:${obj.id}`} component={AlbumsList}/>
-*/}
                                         {
                                             ( (this.state.artistId_selected && this.state.artistId_selected === obj.id) || (this.props.match.params.artistId === obj.id)) ?
                                                 <Route path={`/:search_text/:search_type/:artistId?/:albumId?/:trackId?`} component={AlbumsList} />
                                                 : null
 
-                                        }
-
-
-                                        {
-                                            /* <Route
-                                                                                        path="/:search_text?/:search_type?/:artistId?"
-                                                                                        render={params => <AlbumsList {...params} artId={obj.id} />}
-                                                                                    /> */
                                         }
                                     </div>
                                 </div>

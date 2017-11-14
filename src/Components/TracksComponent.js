@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LikeSong, dislikeSong} from '../actions/';
+import {LikeSong, dislikeSong, songExist} from '../actions/';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
@@ -22,22 +22,29 @@ class TracksComponent extends Component {
  
     doSearch() {
             if(this.props.match.params.albumId && this.props.match)
-            getSongsByAlbum(this.props.match.params.albumId).then(
-                json => {
-                    this.setState({search_result_tracks: json.tracks.items})
-                })
+            this.doSearchTrack()
        else
        {
            this.search()
        }
     }
-
     search(){
 
         search(this.props.match.params.search_text,'track').then(
             json => {
                 this.setState({search_result_tracks: json.tracks.items})
             })
+    }
+    doSearchTrack(){
+        getSongsByAlbum(this.props.match.params.albumId).then(
+            json => {
+                this.setState({search_result_tracks: json.tracks.items})
+            })
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.props.match.params.search_text !== nextProps.match.params.search_text){
+            this.doSearchTrack(nextProps.match.params.search_text)
+        }
     }
 
     routerUrlSong(e, songId) {
@@ -64,7 +71,7 @@ class TracksComponent extends Component {
                                             this.props.song && this.props.song.indexOf(res) > -1 ? self.props.dislikeSong(res) : self.props.LikeSong(res)
                                         }}>
                                     {
-                                        this.props.song && this.props.song.indexOf(res) > -1 ? <FaHeart style={{color: 'red'}}/> : <FaHeartO/>
+                                        this.props.song && this.props.song.indexOf(res) > -1  ? <FaHeart style={{color: 'red'}}/> : <FaHeartO/>
 
                                     }
                                 </button>
@@ -91,7 +98,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({LikeSong: LikeSong, dislikeSong: dislikeSong}, dispatch);
+    return bindActionCreators({LikeSong: LikeSong, dislikeSong: dislikeSong, songExist: songExist}, dispatch);
 }
 
 const SongList = connect(mapStateToProps, matchDispatchToProps)(TracksComponent)
