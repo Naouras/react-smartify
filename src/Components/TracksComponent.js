@@ -21,20 +21,23 @@ class TracksComponent extends Component {
     } 
  
     doSearch() {
-        if(this.props.match.params.search_type ==='track')
-        {
-            search(this.props.match.params.search_text,'track').then(
+            if(this.props.match.params.albumId && this.props.match)
+            getSongsByAlbum(this.props.match.params.albumId).then(
                 json => {
                     this.setState({search_result_tracks: json.tracks.items})
                 })
-        }
-        else {
-            if(this.props.albId && (this.props.match.params.search_type === 'artist' || this.props.match.params.search_type === 'album'))
-            getSongsByAlbum(this.props.albId).then(
-                json => {
-                    this.setState({search_result_tracks: json.tracks.items})
-                })
-        }
+       else
+       {
+           this.search()
+       }
+    }
+
+    search(){
+
+        search(this.props.match.params.search_text,'track').then(
+            json => {
+                this.setState({search_result_tracks: json.tracks.items})
+            })
     }
 
     routerUrlSong(e, songId) {
