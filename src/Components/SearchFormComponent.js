@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-//import {search} from '../lib/SpotifyUtil';
 import '../App.css';
 import {FormGroup, FormControl, Button} from 'react-bootstrap';
 import Result from './SearchResultComponent';
-//import {Alert} from 'reactstrap';
 import {Route} from 'react-router-dom';
 import FavoritesComponent from './FavoritesComponent'
 
@@ -24,7 +22,7 @@ class SearchFormComponent extends Component {
 
     }
 
-    handleChange = (e) => {
+    handleChange (e) {
 
         if (e.target.value.length > 0)
             this.setState({search_text: e.target.value})
@@ -33,7 +31,7 @@ class SearchFormComponent extends Component {
             this.props.history.push("/")
         }
     }
-    handleSelectChange = (e) => {
+    handleSelectChange(e){
         this.setState({search_type: e.target.value, search_text: ''})
         this.props.history.push("/")
     }
@@ -45,7 +43,7 @@ class SearchFormComponent extends Component {
                     <div className="col-md-4">
                         <FormGroup className="form_searchButton">
                             <FormControl type="text" placeholder="Search"
-                                         onChange={this.handleChange}
+                                         onChange={e => this.handleChange(e)}
                                          value={this.state.search_text}/>
                         </FormGroup>
                     </div>
