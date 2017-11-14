@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LikeSong, dislikeSong, songExist } from '../actions/';
+import { LikeSong, dislikeSong } from '../actions/';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -53,15 +53,22 @@ class TracksComponent extends Component {
     }
   }
 
-  routerUrlSong(e, songId) {
+  routerUrlSong(e, songId, res) {
     let search_text = this.props.match.params.search_text;
     let search_type = this.props.match.params.search_type;
     let art_id = search_type === 'artist' ? this.props.match.params.artistId + '/' : '';
     let alb_id = search_type === 'album' ? this.props.match.params.albumId + '/' : '';
     this.props.history.push('/' + search_text + '/' + search_type + '/' + art_id + alb_id + songId + '/');
   }
+
   componentDidMount() {
     this.doSearch();
+  }
+
+  existSong(song) {
+    let result = this.props.song.filter(res => res === song).length;
+    if (result > 0) return true;
+    else return false;
   }
 
   listItems() {
@@ -69,23 +76,17 @@ class TracksComponent extends Component {
     return this.state.search_result_tracks
       ? this.state.search_result_tracks.map((res, i = 1) => {
           return (
-            <li key={i} className="list-group-item" onClick={e => this.routerUrlSong(e, res.id)}>
+            <li key={i} className="list-group-item" onClick={e => this.routerUrlSong(e, res.id, res)}>
               Song {i + 1}: {res.name}
               <button
                 key={i}
                 type="button"
                 className="btn btn-default btn-sm borderButton"
                 onClick={() => {
-                  this.props.song && this.props.song.indexOf(res) > -1
-                    ? self.props.dislikeSong(res)
-                    : self.props.LikeSong(res);
+                  this.props.song && this.existSong(res) ? self.props.dislikeSong(res) : self.props.LikeSong(res);
                 }}
               >
-                {this.props.song && this.props.song.indexOf(res) > -1 ? (
-                  <FaHeart style={{ color: 'red' }} />
-                ) : (
-                  <FaHeartO />
-                )}
+                {this.props.song && this.existSong(res) ? <FaHeart style={{ color: 'red' }} /> : <FaHeartO />}
               </button>
             </li>
           );
@@ -109,7 +110,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ LikeSong: LikeSong, dislikeSong: dislikeSong, songExist: songExist }, dispatch);
+  return bindActionCreators({ LikeSong: LikeSong, dislikeSong: dislikeSong }, dispatch);
 }
 
 const SongList = connect(mapStateToProps, matchDispatchToProps)(TracksComponent);

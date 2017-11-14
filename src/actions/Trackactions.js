@@ -13,10 +13,3 @@ export const dislikeSong = song => {
     song: song
   };
 };
-
-export const songExist = song => {
-  return {
-    type: 'songExist',
-    song: song
-  };
-};
