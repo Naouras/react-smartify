@@ -5,9 +5,13 @@ import Result from './SearchResultComponent';
 import { Route } from 'react-router-dom';
 import FavoritesComponent from './FavoritesComponent';
 import PropTypes from 'prop-types';
+import { searchDataFunction } from '../actions/';
+import { connect } from 'react-redux';
 
 const propTypes = {
-  history: PropTypes.object
+  history: PropTypes.object,
+  searchDataFunction: PropTypes.func,
+  searchData: PropTypes.array
 };
 class SearchFormComponent extends Component {
   constructor(props) {
@@ -20,6 +24,13 @@ class SearchFormComponent extends Component {
   }
   doSearchFunction() {
     this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
+    let result = this.props.searchData.filter(
+      element => element.search_text.toLowerCase() === this.state.search_text.toLowerCase()
+    ).length;
+    console.log('result', result);
+    // if (result === 0) {
+    // this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
+    // }
   }
 
   handleChange(e) {
@@ -33,8 +44,8 @@ class SearchFormComponent extends Component {
     this.setState({ search_type: e.target.value, search_text: '' });
     this.props.history.push('/');
   }
-
   render() {
+    console.log('props', this.props);
     return (
       <div style={{ marginTop: 15 }}>
         <div style={{ justifyContent: 'center' }} className="row">
@@ -82,5 +93,13 @@ class SearchFormComponent extends Component {
     );
   }
 }
+function mapStateToProps(state, ownProps) {
+  return {
+    searchData: state.searchDataReducer
+  };
+}
+
+const mapDispatchToProps = { searchDataFunction };
 SearchFormComponent.propTypes = propTypes;
-export default SearchFormComponent;
+const SearchFormComponentResut = connect(mapStateToProps, mapDispatchToProps)(SearchFormComponent);
+export default SearchFormComponentResut;

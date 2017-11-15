@@ -7,7 +7,7 @@ export default function(state = [], action) {
     case types.SONG_DISLIKED: {
       return state.filter(song => song !== action.song);
     }
-    case types.exist_SONG: {
+    case types.EXIST_SONG: {
       let result = state.filter(res => res === action.song).length;
       if (result > 0) return true;
       else return false;

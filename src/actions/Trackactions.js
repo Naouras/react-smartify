@@ -18,7 +18,7 @@ export const dislikeSong = song => {
 export const existSong = song => {
   console.log('exist SONG: ', song);
   return {
-    type: types.exist_SONG,
+    type: types.EXIST_SONG,
     song: song
   };
 };
