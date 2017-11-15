@@ -76,7 +76,7 @@ class FavoritesComponent extends Component {
                                     key={i}
                                     type="button"
                                     className="btn btn-default btn-sm borderButton"
-                                    onClick={() => {
+                                    onClick={e => {
                                       this.props.dislikeSong(res);
                                     }}
                                   >

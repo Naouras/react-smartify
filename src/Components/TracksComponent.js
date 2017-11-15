@@ -53,7 +53,7 @@ class TracksComponent extends Component {
     }
   }
 
-  routerUrlSong(e, songId, res) {
+  routerUrlSong(e, songId) {
     let search_text = this.props.match.params.search_text;
     let search_type = this.props.match.params.search_type;
     let art_id = search_type === 'artist' ? this.props.match.params.artistId + '/' : '';
@@ -76,13 +76,13 @@ class TracksComponent extends Component {
     return this.state.search_result_tracks
       ? this.state.search_result_tracks.map((res, i = 1) => {
           return (
-            <li key={i} className="list-group-item" onClick={e => this.routerUrlSong(e, res.id, res)}>
+            <li key={i} className="list-group-item" onClick={e => this.routerUrlSong(e, res.id)}>
               Song {i + 1}: {res.name}
               <button
                 key={i}
                 type="button"
                 className="btn btn-default btn-sm borderButton"
-                onClick={() => {
+                onClick={e => {
                   this.props.song && self.existSong(res) ? self.props.dislikeSong(res) : self.props.LikeSong(res);
                 }}
               >
@@ -113,6 +113,6 @@ function matchDispatchToProps(dispatch) {
   return bindActionCreators({ LikeSong: LikeSong, dislikeSong: dislikeSong }, dispatch);
 }
 
-const SongList = connect(mapStateToProps, matchDispatchToProps)(TracksComponent);
 TracksComponent.propTypes = propTypes;
+const SongList = connect(mapStateToProps, matchDispatchToProps)(TracksComponent);
 export default withRouter(SongList);
