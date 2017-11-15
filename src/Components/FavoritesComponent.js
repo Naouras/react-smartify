@@ -7,7 +7,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  song: PropTypes.object,
+  song: PropTypes.array,
   dislikeSong: PropTypes.func
 };
 class FavoritesComponent extends Component {
