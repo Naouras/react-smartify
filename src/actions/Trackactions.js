@@ -13,3 +13,11 @@ export const dislikeSong = song => {
     song: song
   };
 };
+
+export const existSong = song => {
+  console.log('exist SONG: ', song);
+  return {
+    type: 'SONG_EXIST',
+    song: song
+  };
+};

@@ -83,10 +83,10 @@ class TracksComponent extends Component {
                 type="button"
                 className="btn btn-default btn-sm borderButton"
                 onClick={() => {
-                  this.props.song && this.existSong(res) ? self.props.dislikeSong(res) : self.props.LikeSong(res);
+                  this.props.song && self.existSong(res) ? self.props.dislikeSong(res) : self.props.LikeSong(res);
                 }}
               >
-                {this.props.song && this.existSong(res) ? <FaHeart style={{ color: 'red' }} /> : <FaHeartO />}
+                {this.props.song && self.existSong(res) ? <FaHeart style={{ color: 'red' }} /> : <FaHeartO />}
               </button>
             </li>
           );
@@ -114,5 +114,5 @@ function matchDispatchToProps(dispatch) {
 }
 
 const SongList = connect(mapStateToProps, matchDispatchToProps)(TracksComponent);
-SongList.propTypes = propTypes;
+TracksComponent.propTypes = propTypes;
 export default withRouter(SongList);

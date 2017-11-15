@@ -112,5 +112,5 @@ const mapDispatchToProps = {
   dislikeSong
 };
 const FavoritesComponentResult = connect(mapStateToProps, mapDispatchToProps)(FavoritesComponent);
-FavoritesComponentResult.propTypes = propTypes;
+FavoritesComponent.propTypes = propTypes;
 export default withRouter(FavoritesComponentResult);
