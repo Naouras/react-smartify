@@ -1,6 +1,6 @@
 import types from '../actions/actionTypes';
 
-export default function(state = [], action = {}) {
+function SearchDataReducer(state = [], action = {}) {
   switch (action.type) {
     case types.SEARCH_DATA: {
       return [...state, action.serachData];
@@ -9,3 +9,5 @@ export default function(state = [], action = {}) {
       return state;
   }
 }
+
+export default SearchDataReducer;

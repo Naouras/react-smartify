@@ -1,5 +1,5 @@
 import types from '../actions/actionTypes';
-export default function(state = [], action) {
+function TrackReducer(state = [], action) {
   switch (action.type) {
     case types.SONG_Loved: {
       return [...state, action.song];
@@ -16,3 +16,4 @@ export default function(state = [], action) {
       return state;
   }
 }
+export default TrackReducer;

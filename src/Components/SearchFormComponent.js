@@ -3,6 +3,7 @@ import '../App.css';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import Result from './SearchResultComponent';
 import { Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import FavoritesComponent from './FavoritesComponent';
 import PropTypes from 'prop-types';
 import { searchDataFunction } from '../actions/';
@@ -24,13 +25,11 @@ class SearchFormComponent extends Component {
   }
   doSearchFunction() {
     this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
-    let result = this.props.searchData.filter(
-      element => element.search_text.toLowerCase() === this.state.search_text.toLowerCase()
-    ).length;
+    let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
     console.log('result', result);
-    // if (result === 0) {
-    // this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
-    // }
+    if (result === 0) {
+      this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
+    }
   }
 
   handleChange(e) {
@@ -98,8 +97,7 @@ function mapStateToProps(state, ownProps) {
     searchData: state.searchDataReducer
   };
 }
-
 const mapDispatchToProps = { searchDataFunction };
 SearchFormComponent.propTypes = propTypes;
-const SearchFormComponentResut = connect(mapStateToProps, mapDispatchToProps)(SearchFormComponent);
-export default SearchFormComponentResut;
+const SearchFormComponentResult = connect(mapStateToProps, mapDispatchToProps)(SearchFormComponent);
+export default withRouter(SearchFormComponentResult);
