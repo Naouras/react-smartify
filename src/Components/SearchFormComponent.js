@@ -33,10 +33,6 @@ class SearchFormComponent extends Component {
   }
 
   handleChange(e) {
-    let result = this.props.searchData.filter(element => element.search_text === e.target.value).length;
-    if (result.length > 0) {
-      this.setState({ search_type: result[0].search_type });
-    }
     if (e.target.value.length > 0) this.setState({ search_text: e.target.value });
     else {
       this.setState({ search_text: '' });
