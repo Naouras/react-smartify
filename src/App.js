@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import SearchFormComponent from './Components/SearchFormComponent';
 import { Route, withRouter } from 'react-router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
   render() {
@@ -13,7 +14,9 @@ class App extends Component {
         <div className="card-header" style={{ backgroundColor: '#f8f9fa' }}>
           <h1>Smartify Application</h1>
         </div>
-        <Route path="/:search_text?/:search_type?/:artistId?/:albumId?/:trackId?" component={SearchFormComponent} />
+        <MuiThemeProvider>
+          <Route path="/:search_text?/:search_type?/:artistId?/:albumId?/:trackId?" component={SearchFormComponent} />
+        </MuiThemeProvider>
       </div>
     );
   }

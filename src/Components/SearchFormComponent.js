@@ -8,6 +8,8 @@ import FavoritesComponent from './FavoritesComponent';
 import PropTypes from 'prop-types';
 import { searchDataFunction } from '../actions/';
 import { connect } from 'react-redux';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 const propTypes = {
   history: PropTypes.object,
@@ -19,19 +21,25 @@ class SearchFormComponent extends Component {
     super(props);
     this.state = {
       search_text: '',
-      search_type: 'artist',
-      stateSearch: true
+      search_type: '',
+      stateDialog: false,
+      alertMessage: ''
     };
   }
   doSearchFunction() {
-    if (this.state.search_text && this.state.search_type && this.state.stateSearch) {
-      this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
-      let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
-      console.log('result', result);
-      if (result === 0) {
-        this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
-      }
-    } else this.setState({ stateSearch: false });
+    this.state.search_text === ''
+      ? this.setState({ alertMessage: 'Please enter your Search Key', stateDialog: true })
+      : this.state.search_type === ''
+        ? this.setState({
+            alertMessage: 'Please select you Search Type',
+            stateDialog: true
+          })
+        : this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
+    let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
+    console.log('result', result);
+    if (result === 0) {
+      this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
+    }
   }
 
   handleChange(e) {
@@ -40,6 +48,9 @@ class SearchFormComponent extends Component {
       this.setState({ search_text: '' });
       this.props.history.push('/');
     }
+  }
+  handleClose() {
+    this.setState({ stateDialog: false });
   }
   search_history() {
     return this.props.searchData.map((res, i) => (
@@ -51,8 +62,12 @@ class SearchFormComponent extends Component {
     this.props.history.push('/');
   }
   render() {
+    const actions = [<FlatButton label="close" primary onClick={e => this.handleClose()} />];
     return (
       <div style={{ marginTop: 15 }}>
+        <Dialog actions={actions} modal={false} onRequestClose={e => this.handleClose()} open={this.state.stateDialog}>
+          {this.state.alertMessage}
+        </Dialog>
         <div style={{ justifyContent: 'center' }} className="row">
           <div className="col-md-4">
             <FormGroup className="form_searchButton">
@@ -73,6 +88,7 @@ class SearchFormComponent extends Component {
                 value={this.state.search_type}
                 onChange={e => this.handleSelectChange(e)}
               >
+                <option value="">Select type</option>
                 <option value="artist">Artist</option>
                 <option value="album">Album</option>
                 <option value="track">Track</option>
@@ -90,13 +106,7 @@ class SearchFormComponent extends Component {
           <FavoritesComponent />
         </div>
         <div style={{ marginTop: 15 }} className="row">
-          {this.state.stateSearch ? (
-            <Route path="/:search_text/:search_type" component={Result} />
-          ) : (
-            <div className="alert alert-warning" style={{ margin: 60, width: '100%' }}>
-              <strong>Warning!</strong> Verify your input .
-            </div>
-          )}
+          <Route path="/:search_text/:search_type" component={Result} />
         </div>
       </div>
     );
