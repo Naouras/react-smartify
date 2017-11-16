@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import {getAlbumsByArtist} from '../lib/SpotifyUtil';
 import AlbumsList from './AlbumComponent';
 import { Route, withRouter } from 'react-router';
 import { search } from '../lib/SpotifyUtil';
