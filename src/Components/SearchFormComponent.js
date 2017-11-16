@@ -24,25 +24,27 @@ class SearchFormComponent extends Component {
     };
   }
   doSearchFunction() {
-    if (this.state.search_text && this.state.search_type) {
+    if (this.state.search_text && this.state.search_type && this.state.stateSearch) {
       this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
       let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
       console.log('result', result);
       if (result === 0) {
         this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
       }
-    }
+    } else this.setState({ stateSearch: false });
   }
 
   handleChange(e) {
-    if (e.target.value.length > 0) this.setState({ search_text: e.target.value });
+    if (e.target.value.length > 0) this.setState({ search_text: e.target.value, stateSearch: true });
     else {
       this.setState({ search_text: '' });
       this.props.history.push('/');
     }
   }
   search_history() {
-    return this.props.searchData.map((item, key) => <option key={key} value={item.search_text} />);
+    return this.props.searchData.map((res, i) => (
+      <option className="list-group-item" key={i} value={res.search_text} />
+    ));
   }
   handleSelectChange(e) {
     this.setState({ search_type: e.target.value, search_text: '' });
@@ -91,7 +93,9 @@ class SearchFormComponent extends Component {
           {this.state.stateSearch ? (
             <Route path="/:search_text/:search_type" component={Result} />
           ) : (
-            <div>Vérifier chamos texte</div>
+            <div className="alert alert-warning" style={{ margin: 60, width: '100%' }}>
+              <strong>Warning!</strong> Verify your input .
+            </div>
           )}
         </div>
       </div>
