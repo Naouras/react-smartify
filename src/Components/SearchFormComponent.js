@@ -25,16 +25,16 @@ class SearchFormComponent extends Component {
   }
   doSearchFunction() {
     this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
-    let result = this.props.searchData.filter(element => element.search_text === this.state.search_text);
+    let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
     console.log('result', result);
-    if (!result[0]) {
+    if (result === 0) {
       this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
     }
   }
 
   handleChange(e) {
-    let result = this.props.searchData.filter(element => element.search_text === e.target.value);
-    if (result[0]) {
+    let result = this.props.searchData.filter(element => element.search_text === e.target.value).length;
+    if (result.length > 0) {
       this.setState({ search_type: result[0].search_type });
     }
     if (e.target.value.length > 0) this.setState({ search_text: e.target.value });
