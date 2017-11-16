@@ -18,7 +18,8 @@ const propTypes = {
   search_text: PropTypes.string,
   search_type: PropTypes.string,
   LikeSong: PropTypes.func,
-  dislikeSong: PropTypes.func
+  dislikeSong: PropTypes.func,
+  existSong: PropTypes.func
 };
 class TracksComponent extends Component {
   constructor(props) {
@@ -66,7 +67,7 @@ class TracksComponent extends Component {
   }
 
   existSong(song) {
-    let result = this.props.song.filter(res => res === song).length;
+    let result = this.props.song.filter(res => res.id === song.id).length;
     if (result > 0) return true;
     else return false;
   }
@@ -83,10 +84,10 @@ class TracksComponent extends Component {
                 type="button"
                 className="btn btn-default btn-sm borderButton"
                 onClick={e => {
-                  this.props.song && self.existSong(res) ? self.props.dislikeSong(res) : self.props.LikeSong(res);
+                  this.props.song && this.existSong(res) ? self.props.dislikeSong(res) : self.props.LikeSong(res);
                 }}
               >
-                {this.props.song && self.existSong(res) ? <FaHeart style={{ color: 'red' }} /> : <FaHeartO />}
+                {this.props.song && this.existSong(res) ? <FaHeart style={{ color: 'red' }} /> : <FaHeartO />}
               </button>
             </li>
           );

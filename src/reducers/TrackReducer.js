@@ -5,12 +5,7 @@ function TrackReducer(state = [], action) {
       return [...state, action.song];
     }
     case types.SONG_DISLIKED: {
-      return state.filter(song => song !== action.song);
-    }
-    case types.EXIST_SONG: {
-      let result = state.filter(res => res.id === action.song.id).length;
-      if (result > 0) return true;
-      else return false;
+      return state.filter(song => song.id !== action.song.id);
     }
     default:
       return state;
