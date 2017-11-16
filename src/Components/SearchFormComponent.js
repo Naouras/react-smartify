@@ -25,26 +25,32 @@ class SearchFormComponent extends Component {
   }
   doSearchFunction() {
     this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
-    let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
+    let result = this.props.searchData.filter(element => element.search_text === this.state.search_text);
     console.log('result', result);
-    if (result === 0) {
+    if (!result[0]) {
       this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
     }
   }
 
   handleChange(e) {
+    let result = this.props.searchData.filter(element => element.search_text === e.target.value);
+    if (result[0]) {
+      this.setState({ search_type: result[0].search_type });
+    }
     if (e.target.value.length > 0) this.setState({ search_text: e.target.value });
     else {
       this.setState({ search_text: '' });
       this.props.history.push('/');
     }
   }
+  search_history() {
+    return this.props.searchData.map((item, key) => <option key={key} value={item.search_text} />);
+  }
   handleSelectChange(e) {
     this.setState({ search_type: e.target.value, search_text: '' });
     this.props.history.push('/');
   }
   render() {
-    console.log('props', this.props);
     return (
       <div style={{ marginTop: 15 }}>
         <div style={{ justifyContent: 'center' }} className="row">
@@ -55,7 +61,9 @@ class SearchFormComponent extends Component {
                 placeholder="Search"
                 onChange={e => this.handleChange(e)}
                 value={this.state.search_text}
+                list="search_history"
               />
+              <datalist id="search_history">{this.search_history()}</datalist>
             </FormGroup>
           </div>
           <div className="col-md-2">
