@@ -24,11 +24,13 @@ class SearchFormComponent extends Component {
     };
   }
   doSearchFunction() {
-    this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
-    let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
-    console.log('result', result);
-    if (result === 0) {
-      this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
+    if (this.state.search_text && this.state.search_type) {
+      this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
+      let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
+      console.log('result', result);
+      if (result === 0) {
+        this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
+      }
     }
   }
 
