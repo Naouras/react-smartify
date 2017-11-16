@@ -33,11 +33,6 @@ class ArtistComponent extends Component {
   doSearchAlbum(e, id) {
     this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type + '/' + id);
     this.setState({ artistId_selected: id });
-    let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
-    console.log('result', result);
-    if (result === 0) {
-      this.props.searchDataFunction({ search_text: this.state.search_text, search_type: 'artist' });
-    }
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.search_text !== nextProps.match.params.search_text) {
@@ -133,6 +128,6 @@ function mapStateToProps(state, ownProps) {
   };
 }
 const mapDispatchToProps = { searchDataFunction };
-const ArtistComponentResult = connect(mapStateToProps, mapDispatchToProps)(ArtistComponent)
+const ArtistComponentResult = connect(mapStateToProps, mapDispatchToProps)(ArtistComponent);
 ArtistComponent.propTypes = propTypes;
 export default withRouter(ArtistComponentResult);

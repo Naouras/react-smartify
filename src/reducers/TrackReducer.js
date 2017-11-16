@@ -8,7 +8,7 @@ function TrackReducer(state = [], action) {
       return state.filter(song => song !== action.song);
     }
     case types.EXIST_SONG: {
-      let result = state.filter(res => res === action.song).length;
+      let result = state.filter(res => res.id === action.song.id).length;
       if (result > 0) return true;
       else return false;
     }
