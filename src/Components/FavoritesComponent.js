@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { dislikeSong } from '../actions';
 import FaTrash from 'react-icons/lib/fa/trash';
-import FaStar from 'react-icons/lib/fa/star';
+import FaHeart from 'react-icons/lib/fa/heart';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 const propTypes = {
   song: PropTypes.array,
@@ -13,92 +15,74 @@ const propTypes = {
 class FavoritesComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      open: false
+    };
+  }
+  handleOpen() {
+    this.setState({ open: true });
   }
 
+  handleClose() {
+    this.setState({ open: false });
+  }
   render() {
+    const actions = [<FlatButton label="Close" primary onClick={e => this.handleClose()} />];
     return (
       <div>
-        <button type="button" className="btn btn-default btn-sm" data-toggle="modal" data-target="#favoriteTracks">
-          <FaStar style={{ color: 'red' }} />
-          Your Favorite Track(s)
+        <button className="btn btn-default border" onClick={e => this.handleOpen()}>
+          <FaHeart style={{ color: 'red' }} />
         </button>
-
-        <div
-          className="modal fade"
-          id="favoriteTracks"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="favoriteTracksLabel"
-          aria-hidden="true"
-          style={{ padding: 100 }}
+        <Dialog
+          title=" Favorite Tracks List"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={e => this.handleClose()}
+          autoScrollBodyContent
         >
-          <div className="modal-dialog modal-lg modelHeight" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="favoriteTracksLabel">
-                  Favorite Tracks
-                </h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <div id="accordion-favorites" role="tablist">
-                  <div className="alert alert-secondary" role="alert">
-                    Favorite List
-                  </div>
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Track Name</th>
-                        <th>Artist Name</th>
-                        <th>Remove The Track</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.props.song
-                        ? this.props.song.map((res, i) => {
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Track Name</th>
+                <th>Artist Name</th>
+                <th>Remove The Track</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.song
+                ? this.props.song.map((res, i) => {
+                    return (
+                      <tr key={i}>
+                        <td>{res.name}</td>
+                        <td>
+                          {res.artists.map((art, i) => {
                             return (
-                              <tr key={i}>
-                                <td>{res.name}</td>
-                                <td>
-                                  {res.artists.map((art, i) => {
-                                    return (
-                                      <ul key={i}>
-                                        <li>{art.name}</li>
-                                      </ul>
-                                    );
-                                  })}
-                                </td>
-                                <td>
-                                  <button
-                                    key={i}
-                                    type="button"
-                                    className="btn btn-default btn-sm borderButton"
-                                    onClick={e => {
-                                      this.props.dislikeSong(res);
-                                    }}
-                                  >
-                                    <FaTrash style={{ color: 'red' }} />
-                                  </button>
-                                </td>
-                              </tr>
+                              <ul key={i}>
+                                <li>{art.name}</li>
+                              </ul>
                             );
-                          })
-                        : null}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+                          })}
+                        </td>
+                        <td>
+                          <button
+                            key={i}
+                            type="button"
+                            className="btn btn-default btn-sm borderButton"
+                            onClick={e => {
+                              this.props.dislikeSong(res);
+                            }}
+                          >
+                            <FaTrash style={{ color: 'red' }} />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                : null}
+            </tbody>
+          </table>
+        </Dialog>
       </div>
     );
   }
@@ -114,3 +98,4 @@ const mapDispatchToProps = {
 const FavoritesComponentResult = connect(mapStateToProps, mapDispatchToProps)(FavoritesComponent);
 FavoritesComponent.propTypes = propTypes;
 export default withRouter(FavoritesComponentResult);
+

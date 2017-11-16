@@ -3,6 +3,9 @@
     margin-left: 12px !important;
 }
 
+.border{
+  border-radius: 50% !important;
+}
 .avatar{
         border-radius: 50%;
         width: 70px !important;
