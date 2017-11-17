@@ -17,7 +17,7 @@ class SearchResultComponent extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params && (this.props.match.params.search_type !== nextProps.match.params.search_type) ) {
+    if (this.props.match.params && this.props.match.params.search_type !== nextProps.match.params.search_type) {
       this.doSearch(nextProps.match.params.search_text);
     }
   }

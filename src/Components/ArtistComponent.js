@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AlbumsList from './AlbumComponent';
+import AlbumComponent from './AlbumComponent';
 import { Route, withRouter } from 'react-router';
 import { search } from '../lib/SpotifyUtil';
 import PropTypes from 'prop-types';
@@ -47,6 +47,7 @@ class ArtistComponent extends Component {
     }
   }
   render() {
+    console.log('search_result_artists,', this.state.search_result_artists);
     return (
       <div>
         {this.state.search_result_artists ? (
@@ -67,7 +68,7 @@ class ArtistComponent extends Component {
                             style={{ fontSize: 'x-large' }}
                           >
                             {obj.images.map((res, i) => {
-                              if (i === 2 && res !== '' && res !== null && res !== undefined)
+                              if (i === 2 && res)
                                 return <img key={i} src={res.url} className="avatar" alt="Card  cap" />;
                               else return null;
                             })}
@@ -104,8 +105,8 @@ class ArtistComponent extends Component {
                     {(this.state.artistId_selected && this.state.artistId_selected === obj.id) ||
                     this.props.match.params.artistId === obj.id ? (
                       <Route
-                        path={`/:search_text/:search_type/:artistId?/:albumId?/:trackId?`}
-                        component={AlbumsList}
+                        path="/:search_text/:search_type/:artistId?/:albumId?/:trackId?"
+                        component={AlbumComponent}
                       />
                     ) : null}
                   </div>

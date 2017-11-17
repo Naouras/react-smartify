@@ -98,4 +98,3 @@ const mapDispatchToProps = {
 const FavoritesComponentResult = connect(mapStateToProps, mapDispatchToProps)(FavoritesComponent);
 FavoritesComponent.propTypes = propTypes;
 export default withRouter(FavoritesComponentResult);
-

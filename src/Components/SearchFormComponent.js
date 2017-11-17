@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
-import Result from './SearchResultComponent';
+import SearchResultComponent from './SearchResultComponent';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import FavoritesComponent from './FavoritesComponent';
@@ -37,7 +37,6 @@ class SearchFormComponent extends Component {
           })
         : this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type);
     let result = this.props.searchData.filter(element => element.search_text === this.state.search_text).length;
-    console.log('result', result);
     if (result === 0) {
       this.props.searchDataFunction({ search_text: this.state.search_text, search_type: this.state.search_type });
     }
@@ -109,7 +108,7 @@ class SearchFormComponent extends Component {
           </div>
         ) : null}
         <div style={{ marginTop: 15 }} className="row">
-          <Route path="/:search_text/:search_type" component={Result} />
+          <Route path="/:search_text/:search_type" component={SearchResultComponent} />
         </div>
       </div>
     );

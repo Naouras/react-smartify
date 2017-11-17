@@ -1,5 +1,5 @@
 const Config = {
   spotifyAccessToken:
-    'BQCor0T8-CwlXUX2VTO4F8kwhFto4Zg22XxcLuglOzgcH3q7XUSCjPBefaWXJJvWRhQrJ6h-2s4aPaRQTKjU1IjrmkzivoFyiXfWM7eDt6pno7Rjwq2oC_f0nUjmSf6AStos8KW7o0kTjDCsWYRq16pIa19w7Y-GGLuY_a3dv7YOEqzEw4dtF9tFzuHFltxcm0kG2sD3f7lRrPgr5mz0'
+    'BQCjXBeIBxH3RJAa341q1Sd5RxFv1wCXHXvvFTt7jYDjmCXmIxz3HfBJXjB_pRNrXKxu0bJGkvL8pAjo-A5ANgCjSi6oW38UU4zrrCDKNZxQAG2xzab02I_PCjcINuClci-Ye6YpuqBopufhJUTzV2DS2B504Re6LazVWO4RQbyqIdD58aBEJjCt3FZZzfLGtANk_jvFt8t4KE6Mgn9N'
 };
 export default Config;
