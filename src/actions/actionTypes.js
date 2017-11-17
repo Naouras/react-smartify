@@ -1,6 +1,5 @@
 export default {
   SONG_Loved: 'SONG_Loved',
   SONG_DISLIKED: 'SONG_DISLIKED',
-  EXIST_SONG: 'EXIST_SONG',
   SEARCH_DATA: 'SEARCH_DATA'
 };

@@ -14,7 +14,8 @@ import FlatButton from 'material-ui/FlatButton';
 const propTypes = {
   history: PropTypes.object,
   searchDataFunction: PropTypes.func,
-  searchData: PropTypes.array
+  searchData: PropTypes.array,
+  tracks: PropTypes.array
 };
 class SearchFormComponent extends Component {
   constructor(props) {
@@ -102,9 +103,11 @@ class SearchFormComponent extends Component {
           </div>
         </div>
         <hr className="hr" />
-        <div className="float-right">
-          <FavoritesComponent />
-        </div>
+        {this.props.tracks.length > 0 ? (
+          <div className="float-right Fvorite">
+            <FavoritesComponent />Favorites Tracks
+          </div>
+        ) : null}
         <div style={{ marginTop: 15 }} className="row">
           <Route path="/:search_text/:search_type" component={Result} />
         </div>
@@ -114,7 +117,8 @@ class SearchFormComponent extends Component {
 }
 function mapStateToProps(state, ownProps) {
   return {
-    searchData: state.searchDataReducer
+    searchData: state.searchDataReducer,
+    tracks: state.tracksReducer
   };
 }
 const mapDispatchToProps = { searchDataFunction };

@@ -31,7 +31,7 @@ class FavoritesComponent extends Component {
     return (
       <div>
         <button className="btn btn-default border" onClick={e => this.handleOpen()}>
-          <FaHeart style={{ color: 'red' }} />
+          <FaHeart style={{ color: '#28a4c9' }} />
         </button>
         <Dialog
           title=" Favorite Tracks List"
