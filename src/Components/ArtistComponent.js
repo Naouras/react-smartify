@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AlbumComponent from './AlbumComponent';
+import { AlbumComponent } from './index';
 import { Route, withRouter } from 'react-router';
 import { search } from '../lib/SpotifyUtil';
 import PropTypes from 'prop-types';

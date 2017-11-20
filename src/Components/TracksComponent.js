@@ -115,5 +115,5 @@ function matchDispatchToProps(dispatch) {
 }
 
 TracksComponent.propTypes = propTypes;
-const SongList = connect(mapStateToProps, matchDispatchToProps)(TracksComponent);
-export default withRouter(SongList);
+const TracksComponentResult = connect(mapStateToProps, matchDispatchToProps)(TracksComponent);
+export default withRouter(TracksComponentResult);

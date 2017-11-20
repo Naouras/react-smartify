@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Artist from './ArtistComponent';
-import Album from './AlbumComponent';
-import TracksList from './TracksComponent';
+import { ArtistComponentResult, AlbumComponent, TracksComponentResult } from './index';
 import { Route, withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 const propTypes = {
@@ -28,13 +26,16 @@ class SearchResultComponent extends Component {
           <div className="col-md-2" />
           <div className="col-md-8">
             {this.props.match.params.search_type === 'artist' ? (
-              <Route path="/:search_text/:search_type/:artistId?" component={Artist} />
+              <Route path="/:search_text/:search_type/:artistId?" component={ArtistComponentResult} />
             ) : null}
             {this.props.match.params.search_type === 'album' ? (
-              <Route path="/:search_text/:search_type/:artistId?/:albumId?" component={Album} />
+              <Route path="/:search_text/:search_type/:artistId?/:albumId?" component={AlbumComponent} />
             ) : null}
             {this.props.match.params.search_type === 'track' ? (
-              <Route path="/:search_text/:search_type/:artistId?/:albumId?/:trackId?" component={TracksList} />
+              <Route
+                path="/:search_text/:search_type/:artistId?/:albumId?/:trackId?"
+                component={TracksComponentResult}
+              />
             ) : null}
           </div>
         </div>

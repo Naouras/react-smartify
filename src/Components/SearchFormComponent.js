@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
-import SearchResultComponent from './SearchResultComponent';
+import { SearchResultComponent, FavoritesComponentResult } from './index';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import FavoritesComponent from './FavoritesComponent';
 import PropTypes from 'prop-types';
 import { searchDataFunction } from '../actions/';
 import { connect } from 'react-redux';
@@ -104,7 +103,7 @@ class SearchFormComponent extends Component {
         <hr className="hr" />
         {this.props.tracks.length > 0 ? (
           <div className="float-right Fvorite">
-            <FavoritesComponent />Favorites Tracks
+            <FavoritesComponentResult />Favorites Tracks
           </div>
         ) : null}
         <div style={{ marginTop: 15 }} className="row">
