@@ -33,9 +33,8 @@ class ArtistComponent extends Component {
     this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type + '/' + id);
     this.setState({ artistId_selected: id });
     this.props.searchDataFunction({
-      search_text: this.state.search_text,
-      search_type: 'artist',
-      artistName: artistName
+      search_text: artistName,
+      search_type: 'artist'
     });
   }
   componentWillReceiveProps(nextProps) {

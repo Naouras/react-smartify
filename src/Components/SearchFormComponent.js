@@ -41,7 +41,7 @@ class SearchFormComponent extends Component {
   }
 
   handleChange(e) {
-    if (e.target.value.length > 0) this.setState({ search_text: e.target.value, stateSearch: true });
+    if (e.target.value.length > 0) this.setState({ search_text: e.target.value });
     else {
       this.setState({ search_text: '' });
       this.props.history.push('/');
@@ -56,7 +56,7 @@ class SearchFormComponent extends Component {
     ));
   }
   handleSelectChange(e) {
-    this.setState({ search_type: e.target.value, search_text: '' });
+    this.setState({ search_type: e.target.value });
     this.props.history.push('/');
   }
   render() {
