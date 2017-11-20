@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../App.css';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { SearchResultComponent, FavoritesComponentResult } from './index';
 import { Route } from 'react-router-dom';

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
-import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import SearchFormComponent from './Components/SearchFormComponent';
