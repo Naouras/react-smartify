@@ -1,5 +1,0 @@
-const Config = {
-  spotifyAccessToken:
-    'BQCEZ4CBe6Zp553m5RZkNjAIl9mO5MXDCn2axR4ncVEiy5zmwnwJ3S3LlUnd8erdzFqulm0n4oXjv7OkMTeGeUTgTEiQBO5m9zZNV3Pkiiu3QtOtLUYXABG_lzot4felp58ZTVHAsEcdkGm_f-ax2J7HB1Qwyzc6Ub__jDfApyGifppTwLvRFrtDciJX8sklVpuyFZscNNeFCgEFYI4e'
-};
-export default Config;
