@@ -132,6 +132,6 @@ function mapStateToProps(state, ownProps) {
   };
 }
 const mapDispatchToProps = { searchDataFunction };
-const ArtistComponentResult = connect(mapStateToProps, mapDispatchToProps)(ArtistComponent);
+ArtistComponent = connect(mapStateToProps, mapDispatchToProps)(ArtistComponent);
 ArtistComponent.propTypes = propTypes;
-export default withRouter(ArtistComponentResult);
+export default withRouter(ArtistComponent);

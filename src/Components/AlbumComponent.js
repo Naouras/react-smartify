@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TracksComponentResult } from './index';
+import { TracksComponent } from './index';
 import { Route, withRouter, Switch } from 'react-router';
 import { search, getAlbumsByArtist } from '../lib/SpotifyUtil';
 import PropTypes from 'prop-types';
@@ -93,12 +93,9 @@ class AlbumComponent extends Component {
                       <Switch>
                         <Route
                           path="/:search_text?/:search_type?/:artistId?/:albumId?/:trackId?"
-                          component={TracksComponentResult}
+                          component={TracksComponent}
                         />
-                        <Route
-                          path="/:search_text?/:search_type?/:albumId?/:trackId?"
-                          component={TracksComponentResult}
-                        />
+                        <Route path="/:search_text?/:search_type?/:albumId?/:trackId?" component={TracksComponent} />
                       </Switch>
                     ) : null}
                   </div>

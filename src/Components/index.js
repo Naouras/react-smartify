@@ -1,15 +1,15 @@
-import SearchFormComponentResult from './SearchFormComponent';
+import SearchFormComponent from './SearchFormComponent';
 import SearchResultComponent from './SearchResultComponent';
-import ArtistComponentResult from './ArtistComponent';
+import ArtistComponent from './ArtistComponent';
 import AlbumComponent from './AlbumComponent';
-import TracksComponentResult from './TracksComponent';
-import FavoritesComponentResult from './FavoritesComponent';
+import TracksComponent from './TracksComponent';
+import FavoritesComponent from './FavoritesComponent';
 
 export {
-  SearchFormComponentResult,
+  SearchFormComponent,
   SearchResultComponent,
-  ArtistComponentResult,
+  ArtistComponent,
   AlbumComponent,
-  TracksComponentResult,
-  FavoritesComponentResult
+  TracksComponent,
+  FavoritesComponent
 };

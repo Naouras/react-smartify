@@ -95,6 +95,6 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = {
   dislikeSong
 };
-const FavoritesComponentResult = connect(mapStateToProps, mapDispatchToProps)(FavoritesComponent);
+FavoritesComponent = connect(mapStateToProps, mapDispatchToProps)(FavoritesComponent);
 FavoritesComponent.propTypes = propTypes;
-export default withRouter(FavoritesComponentResult);
+export default withRouter(FavoritesComponent);

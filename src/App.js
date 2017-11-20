@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import SearchFormComponent from './Components/SearchFormComponent';
+import { SearchFormComponent } from './Components/index';
 import { Route, withRouter } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 

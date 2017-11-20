@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
-import { SearchResultComponent, FavoritesComponentResult } from './index';
+import { SearchResultComponent, FavoritesComponent } from './index';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
@@ -102,7 +102,7 @@ class SearchFormComponent extends Component {
         <hr className="hr" />
         {this.props.tracks.length > 0 ? (
           <div className="float-right Fvorite">
-            <FavoritesComponentResult />Favorites Tracks
+            <FavoritesComponent />Favorites Tracks
           </div>
         ) : null}
         <div style={{ marginTop: 15 }} className="row">
@@ -120,5 +120,5 @@ function mapStateToProps(state, ownProps) {
 }
 const mapDispatchToProps = { searchDataFunction };
 SearchFormComponent.propTypes = propTypes;
-const SearchFormComponentResult = connect(mapStateToProps, mapDispatchToProps)(SearchFormComponent);
-export default withRouter(SearchFormComponentResult);
+SearchFormComponent = connect(mapStateToProps, mapDispatchToProps)(SearchFormComponent);
+export default withRouter(SearchFormComponent);
