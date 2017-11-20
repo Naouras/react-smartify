@@ -29,9 +29,14 @@ class ArtistComponent extends Component {
       });
     }
   }
-  doSearchAlbum(e, id) {
+  doSearchAlbum(e, id, artistName) {
     this.props.history.push('/' + this.state.search_text + '/' + this.state.search_type + '/' + id);
     this.setState({ artistId_selected: id });
+    this.props.searchDataFunction({
+      search_text: this.state.search_text,
+      search_type: 'artist',
+      artistName: artistName
+    });
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.search_text !== nextProps.match.params.search_text) {
@@ -64,7 +69,7 @@ class ArtistComponent extends Component {
                             data-toggle="collapse"
                             href={'#' + obj.id}
                             aria-controls={obj.id}
-                            onClick={e => this.doSearchAlbum(e, obj.id)}
+                            onClick={e => this.doSearchAlbum(e, obj.id, obj.name)}
                             style={{ fontSize: 'x-large' }}
                           >
                             {obj.images.map((res, i) => {
@@ -81,7 +86,7 @@ class ArtistComponent extends Component {
                             data-toggle="collapse"
                             href={'#' + obj.id}
                             aria-controls={obj.id}
-                            onClick={e => this.doSearchAlbum(e, obj.id)}
+                            onClick={e => this.doSearchAlbum(e, obj.id, obj.name)}
                             style={{ fontSize: 'x-large' }}
                           >
                             {obj.name}
