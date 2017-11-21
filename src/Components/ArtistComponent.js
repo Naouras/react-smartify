@@ -5,6 +5,7 @@ import { search } from '../lib/SpotifyUtil';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { searchDataFunction } from '../actions/';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
   match: PropTypes.object,
@@ -64,9 +65,9 @@ class ArtistComponent extends Component {
                     <div className="row">
                       <div className="col-md-6">
                         <h5 className="mb-0">
-                          <a
+                          <Link
                             data-toggle="collapse"
-                            href={'#' + obj.id}
+                            to={'#' + obj.id}
                             aria-controls={obj.id}
                             onClick={e => this.doSearchAlbum(e, obj.id, obj.name)}
                             style={{ fontSize: 'x-large' }}
@@ -76,20 +77,20 @@ class ArtistComponent extends Component {
                                 return <img key={i} src={res.url} className="avatar" alt="Card  cap" />;
                               else return null;
                             })}
-                          </a>
+                          </Link>
                         </h5>
                       </div>
                       <div className="col-md-6">
                         <h5 className="mb-0">
-                          <a
+                          <Link
                             data-toggle="collapse"
-                            href={'#' + obj.id}
+                            to={'#' + obj.id}
                             aria-controls={obj.id}
                             onClick={e => this.doSearchAlbum(e, obj.id, obj.name)}
                             style={{ fontSize: 'x-large' }}
                           >
                             {obj.name}
-                          </a>
+                          </Link>
                         </h5>
                       </div>
                     </div>

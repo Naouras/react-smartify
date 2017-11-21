@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TracksComponent } from './index';
 import { Route, withRouter, Switch } from 'react-router';
 import { search, getAlbumsByArtist } from '../lib/SpotifyUtil';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 const propTypes = {
   match: PropTypes.object,
@@ -70,14 +71,14 @@ class AlbumComponent extends Component {
                 <div className="card">
                   <div className="card-header" role="tab" id={(obj.name + obj.id).replace(/ /g, '')}>
                     <h5 className="mb-0">
-                      <a
+                      <Link
                         data-toggle="collapse"
-                        href={'#' + obj.id}
+                        to={'#' + obj.id}
                         aria-controls={obj.id}
                         onClick={e => this.doSearchtracks(e, obj.id)}
                       >
                         {obj.name}
-                      </a>
+                      </Link>
                     </h5>
                   </div>
                 </div>
